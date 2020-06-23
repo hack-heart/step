@@ -1,18 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Chibuzo Chiwike's portfolio" />
+    <meta name="keywords" content="Dartmouth, Chibuzo, Chiwike" />
+    <meta name="author" content="Chibuzo Chiwike" />
+    <title>Chibuzo's Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/css/uikit.min.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://kit.fontawesome.com/6888f4e637.js"></script>
   </head>
   <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+    <header>
+      <h1>Home</h1>
+      <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+          <ul class="uk-navbar-nav">
+            <li><a href="#about">About me</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#posts">Posts</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div>
+      <section id="about">
+        <h2>About me</h2>
+        <!-- A lot of text, github and linkedin links-->
+        <a href="https://www.linkedin.com/in/chibuzochiwike"><i class="fab fa-linkedin"> Linkedin</i></a>
+        <a href="https://www.github.com/hack-heart"><i class="fab fa-github"> Github</i></a>
+      </section>
+      <section id="projects">
+        <!-- Projects, styled as cards -->
+        <h2>Projects</h2>
+      </section>
+      <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+          <img src="images/placeholder.jpg" data-src="images/lyon-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/lyon-2.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/lyon-3.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/lyon-4.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/lyon-5.jpg" alt="" width="500" height="500" uk-img />
+        </div>
+        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+          <img src="images/placeholder.jpg" data-src="images/marseille-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/marseille-2.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/marseille-3.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/marseille-4.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/bourgogne-2.jpg" alt="" width="500" height="500" uk-img />
+        </div>
+        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+          <img src="images/placeholder.jpg" data-src="images/ghc-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/NJ-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/wv-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/hanover-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/hanover-2.jpg" alt="" width="500" height="500" uk-img />
+        </div>
+      </section>
+      <section id="posts">
+        <h2>Posts</h2>
+        <!--Text-->
+      </section>
     </div>
+    <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit-icons.min.js"></script>
   </body>
 </html>

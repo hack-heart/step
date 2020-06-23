@@ -1,0 +1,35 @@
+{
+  "name": "cchiwike",
+  "version": "1.0.0",
+  "description": "",
+  "main": "portfolio/src/main/webapp/script.js",
+  "dependencies": {
+    "clang-format": "^1.4.0",
+    "css-validator": "^0.9.0",
+    "eslint": "^7.3.0",
+    "eslint-config-google": "^0.14.0",
+    "html-validate": "^3.0.0",
+    "prettier": "^2.0.5",
+    "uikit": "^3.5.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "cd portfolio; mvn package appengine:run",
+    "prettify": "make pretty; make validate",
+    "deploy": "cd portfolio; mvn package appengine:deploy",
+    "test": "echo \"no test found\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hack-heart/step.git"
+  },
+  "keywords": [
+    "portfolio"
+  ],
+  "author": "Chibuzo Chiwike",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hack-heart/step/issues"
+  },
+  "homepage": "https://github.com/hack-heart/step#readme"
+}

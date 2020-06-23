@@ -5,7 +5,7 @@ HTML_VALIDATE=node_modules/html-validate/bin/html-validate.js
 PRETTIER=node_modules/prettier/bin-prettier.js
 
 node_modules:
-	npm install clang-format prettier css-validator html-validate eslint eslint-config-google
+	yarn add clang-format prettier css-validator html-validate eslint eslint-config-google
 
 pretty: node_modules
 	$(PRETTIER) --write portfolio/src/main/webapp/*.{html,css}
