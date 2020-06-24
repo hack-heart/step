@@ -6,13 +6,14 @@
   "dependencies": {
     "clang-format": "^1.4.0",
     "css-validator": "^0.9.0",
-    "eslint": "^7.3.0",
-    "eslint-config-google": "^0.14.0",
     "html-validate": "^3.0.0",
     "prettier": "^2.0.5",
     "uikit": "^3.5.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-config-google": "^0.14.0"
+  },
   "scripts": {
     "start": "cd portfolio; mvn package appengine:run",
     "prettify": "make pretty; make validate",
