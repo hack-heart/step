@@ -1,13 +1,2 @@
 target/
 .idea
-
-# Ignore generated NPM files
-# These are sometimes included but not necessary for this project
-yarn.lock
-node_modules/
-
-# Ignore generated Maven build files
-target/
-
-# Ignore editor config
-.idea
