@@ -21,6 +21,6 @@ function createMap() {
   const trexMarker = new google.maps.Marker({
     position: {lat: 37.421903, lng: -122.084674},
     map: map,
-    title: 'Stan the T-Rex'
+    title: 'Stan the T-Rex',
   });
 }
