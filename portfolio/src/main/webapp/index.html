@@ -1,18 +1,171 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Chibuzo Chiwike's portfolio" />
+    <meta name="keywords" content="Dartmouth, Chibuzo, Chiwike" />
+    <meta name="author" content="Chibuzo Chiwike" />
+    <title>Chibuzo's Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/6888f4e637.js"></script>
   </head>
   <body>
+    <header>
+      <h1>Home</h1>
+      <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+          <ul class="uk-navbar-nav">
+            <li><a href="#about">About me</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+      <section id="about">
+        <h2>About me</h2>
+        <a href="https://www.linkedin.com/in/chibuzochiwike"><i class="fab fa-linkedin"> Linkedin</i></a>
+        <a href="https://www.github.com/hack-heart"><i class="fab fa-github"> Github</i></a>
+      </section>
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+          <div class="uk-card-media-left uk-cover-container">
+            <img src="images/envol.png" alt="envol front page" uk-cover />
+            <canvas width="600" height="400"></canvas>
+          </div>
+          <div>
+            <div class="uk-card-body">
+              <h3 class="uk-card-title">Envol</h3>
+              <p>
+                The cheapest way to book group trips and find cheap flights! Check it out
+                <a href="https://envol.surge.sh">here</a>.
+              </p>
+              <p><strong>Built with: </strong>MongoDB, React, Redux, NodeJS, Express, Material UI</p>
+            </div>
+          </div>
+        </div>
+        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+          <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+            <img src="images/bacon.png" alt="Kevin Bacon game" uk-cover />
+            <canvas width="600" height="400"></canvas>
+          </div>
+          <div>
+            <div class="uk-card-body">
+              <h3 class="uk-card-title">Kevin Bacon game</h3>
+              <p>
+                Plays the Kevin Bacon Game (finds an actor's
+                <a href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon">Bacon number</a>. Includes option to
+                change the center of the acting universe from Kevin Bacon to any other actor (within the dataset)
+              </p>
+              <p><strong>Built with: </strong>Java</p>
+              <p></p>
+              <p>
+                <strong>Built by: </strong>processing datasets of movies and actors to create graph, and writing a graph
+                library to build a shortest path tree for vertices in the graph and calculate the average degree of
+                separation between the root and all other nodes in the tree.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margcin" uk-grid>
+          <div class="uk-card-media-left uk-cover-container">
+            <img src="images/posts.png" alt="Posts web application" uk-cover />
+            <canvas width="600" height="400"></canvas>
+          </div>
+          <div>
+            <div class="uk-card-body">
+              <h3 class="uk-card-title">Posts</h3>
+              <p>
+                CRUD web app that allows users to sign up and create posts and leave comments on posts. Includes
+                additional feature of autopopulating posts using NASA's Picture of the Day API. Simply enter a date!
+                Check it out <a href="https://chibuzo-cs52-platform.surge.sh">here</a>
+              </p>
+              <p>
+                <strong>Built with: </strong>MongoDB, React, Redux, NodeJS, Express, Semantic UI React, PassportJS,
+                BcryptJS, Amazon S3
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+          <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+            <img src="images/sketch.png" alt="Collaborative Graphical Editor" uk-cover />
+            <canvas width="600" height="400"></canvas>
+          </div>
+          <div>
+            <div class="uk-card-body">
+              <h3 class="uk-card-title">Collaborative Graphical Editor</h3>
+              <p>Allows multiple people to draw collaboratively on a sketch</p>
+              <p><strong>Built with: </strong>Java</p>
+              <p><strong>Built by: </strong>using sockets and multithreading</p>
+            </div>
+          </div>
+        </div>
+        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+          <div class="uk-card-media-left uk-cover-container">
+            <img src="images/map.png" alt="Map of Dartmouth" uk-cover />
+            <canvas width="600" height="400"></canvas>
+          </div>
+          <div>
+            <div class="uk-card-body">
+              <h3 class="uk-card-title">Map of Dartmouth</h3>
+              <p>
+                This program allows users to find the shortest path between any two locations on Dartmouth's campus.
+              </p>
+              <p><strong>Built with: </strong>Python</p>
+              <p><strong>Algorithm: </strong>Breadth First Search</p>
+            </div>
+          </div>
+        </div>
+        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+          <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+            <img src="images/pos_tagger.png" alt="Parts of Speech tagger" uk-cover />
+            <canvas width="600" height="400"></canvas>
+          </div>
+          <div>
+            <div class="uk-card-body">
+              <h3 class="uk-card-title">Parts of Speech Tagger</h3>
+              <p>This program tags each word typed into the console with its part of Speech in English</p>
+              <p><strong>Built with: </strong>Java</p>
+              <p>
+                <strong>Built by: </strong>training a Hidden Markov Model using the Brown Corpus, and using the Viterbi
+                algorithm for decoding
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+          <img src="images/placeholder.jpg" data-src="images/lyon-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/lyon-2.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/lyon-3.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/lyon-4.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/lyon-5.jpg" alt="" width="500" height="500" uk-img />
+        </div>
+        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+          <img src="images/placeholder.jpg" data-src="images/marseille-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/marseille-2.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/marseille-3.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/marseille-4.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/bourgogne-2.jpg" alt="" width="500" height="500" uk-img />
+        </div>
+        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+          <img src="images/placeholder.jpg" data-src="images/ghc-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/NJ-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/wv-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/hanover-1.jpg" alt="" width="500" height="500" uk-img />
+          <img src="images/placeholder.jpg" data-src="images/hanover-2.jpg" alt="" width="500" height="500" uk-img />
+        </div>
+      </section>
     </div>
+    <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit-icons.min.js"></script>
   </body>
 </html>
