@@ -8,16 +8,22 @@
     <meta name="author" content="Chibuzo Chiwike" />
     <title>Chibuzo's Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/css/uikit.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300&family=Oxygen:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <script src="https://kit.fontawesome.com/6888f4e637.js"></script>
   </head>
   <body>
     <header>
-      <h1>Home</h1>
-      <nav class="uk-navbar-container" uk-navbar>
+      <nav id="nav" class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-left">
           <ul class="uk-navbar-nav">
-            <li><a href="#about">About me</a></li>
+            <li>
+              <a href="#"><i class="fas fa-home"></i>Home</a>
+            </li>
+            <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#gallery">Gallery</a></li>
           </ul>
@@ -25,10 +31,24 @@
       </nav>
     </header>
     <div id="content">
+      <h1>Chibuzo Chiwike's Portfolio</h1>
       <section id="about">
         <h2>About me</h2>
-        <a href="https://www.linkedin.com/in/chibuzochiwike"><i class="fab fa-linkedin"> Linkedin</i></a>
-        <a href="https://www.github.com/hack-heart"><i class="fab fa-github"> Github</i></a>
+        <p>Hi! Kedu? Salut!</p>
+        <p>
+          I'm Chibuzo, and I'm a '22 at Dartmouth. I grew up in Aba, Nigeria, and moved to the United States two years
+          ago for college. I speak 2.75 languages (English, Igbo, and French). In my free time, I like to sing, read,
+          write, and binge watch Netflix and YouTube. I'm currently interested in full stack web development and UI/UX
+          design. My Github and Linkedin are below, so don't forget to hit that subscribe, I mean connect button.
+        </p>
+        <div>
+          <a href="https://www.linkedin.com/in/chibuzochiwike"><i class="fab fa-linkedin"> Linkedin</i></a>
+          <a href="https://www.github.com/hack-heart"><i class="fab fa-github"> Github</i></a>
+        </div>
+        <br />
+        <button id="quote-button" type="button" class="uk-button uk-button-primary">Get quote!</button>
+        <br />
+        <div id="quote-container">Click the button above to get a quote from my favourite book.</div>
       </section>
       <section id="projects">
         <h2>Projects</h2>
@@ -202,5 +222,6 @@
     <footer></footer>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit-icons.min.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
