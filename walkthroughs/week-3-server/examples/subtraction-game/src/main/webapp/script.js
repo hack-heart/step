@@ -16,7 +16,7 @@
  * Fetches the current state of the game and builds the UI.
  */
 function getSubtractionGame() {
-  fetch('/subtraction-game').then(response => response.json()).then((game) => {
+  fetch('/subtraction-game').then((response) => response.json()).then((game) => {
     const totalEl = document.getElementById('total');
     if (game.gameOver) {
       // The current game is over, show the total for the next game.
