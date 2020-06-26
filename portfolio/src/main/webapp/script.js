@@ -16,9 +16,9 @@
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
-// Show 'Hello Chibuzo' when the hello button is clicked
-const helloButton = document.getElementById('hello-button');
-helloButton.addEventListener('click', addMessage);
+// Show the comments when the quote button is clicked
+const commentsButton = document.getElementById('comments-button');
+commentsButton.addEventListener('click', addComments);
 
 /**
  * Adds a random quote from Pierce Brown's Red Rising to the page.
@@ -54,10 +54,19 @@ function addRandomQuote() {
 }
 
 /**
- * Adds a message returned from the server to the page.
+ * Adds comments returned from the server to the page.
  */
-async function addMessage() {
+async function addComments() {
   const response = await fetch('/data');
-  const message = await response.text();
-  document.getElementById('hello-container').innerText = message;
+  const comments = await response.json();
+  const commentsContainer = document.getElementById('comments-container');
+  comments.map((comment) => createListElement(comment))
+      .forEach((listElement) => commentsContainer.appendChild(listElement));
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
