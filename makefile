@@ -11,6 +11,7 @@ pretty: node_modules
 	$(PRETTIER) --write portfolio/src/main/webapp/*.{html,css}
 	find portfolio/src/main/java -iname *.java | xargs $(CLANG_FORMAT) -i
 	find portfolio/src/main/webapp -iname *.js | xargs $(CLANG_FORMAT) -i
+	find portfolio/src/main/webapp -name *.js | xargs $(ESLINT) --fix
 
 validate: node_modules
 	$(HTML_VALIDATE) portfolio/src/main/webapp/*.html

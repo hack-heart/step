@@ -16,6 +16,10 @@
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
+// Show 'Hello Chibuzo' when the hello button is clicked
+const helloButton = document.getElementById('hello-button');
+helloButton.addEventListener('click', addMessage);
+
 /**
  * Adds a random quote from Pierce Brown's Red Rising to the page.
  */
@@ -47,4 +51,13 @@ function addRandomQuote() {
   // Add it to the page.
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
+}
+
+/**
+ * Adds a message returned from the server to the page.
+ */
+async function addMessage() {
+  const response = await fetch('/data');
+  const message = await response.text();
+  document.getElementById('hello-container').innerText = message;
 }
