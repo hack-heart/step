@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Show a quote when the quote button is clicked
+// Shows a quote when the quote button is clicked
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
-// Show the comments when the quote button is clicked
-const commentsButton = document.getElementById('comments-button');
-commentsButton.addEventListener('click', addComments);
+// Adds comments to the page once it loads
+addComments();
 
 /**
  * Adds a random quote from Pierce Brown's Red Rising to the page.

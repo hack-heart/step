@@ -221,7 +221,10 @@
       </section>
       <br />
       <section id="comments">
-        <button id="comments-button" type="button" class="uk-button uk-button-primary">See comments!</button>
+        <form action="/data" method="post">
+          <textarea type="text" name="text" placeholder="Write a comment"></textarea>
+          <button type="submit">Create</button>
+        </form>
         <ul id="comments-container"></ul>
       </section>
     </div>
