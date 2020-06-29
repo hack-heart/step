@@ -16,7 +16,6 @@
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
-// Adds comments to the page once it loads
 addComments();
 
 /**
@@ -52,20 +51,76 @@ function addRandomQuote() {
   quoteContainer.innerText = quote;
 }
 
-/**
- * Adds comments returned from the server to the page.
- */
+/** Adds comments returned from the server to the page */
 async function addComments() {
   const response = await fetch('/data');
   const comments = await response.json();
   const commentsContainer = document.getElementById('comments-container');
-  comments.map((comment) => createListElement(comment))
-      .forEach((listElement) => commentsContainer.appendChild(listElement));
+  comments.map((comment) => buildComment(comment)).forEach((listElement) => {
+    commentsContainer.appendChild(listElement);
+  });
 }
 
-/** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+/**
+ * Builds up the comment body by nesting elements and assigning styling
+ * classes from UI Kit
+ */
+function buildComment(comment) {
+  // Pick a random identicon from the images folder
+  const imageIndex = Math.floor(Math.random() * 8) + 1;
+  const imgUrl = 'images/identicon-' + imageIndex + '.png';
+
+  const listElement = document.createElement('li');
+
+  const articleElement = document.createElement('article');
+  articleElement.classList.add(
+      'uk-comment', 'uk-visible-toggle', 'uk-comment-primary');
+  articleElement.tabIndex = -1;
+
+  const headerElement = document.createElement('header');
+  headerElement.classList.add('uk-comment-header', 'uk-position-relative');
+
+  const gridDiv = document.createElement('div');
+  gridDiv.classList.add('uk-grid-small', 'uk-flex-middle');
+  gridDiv.setAttribute('uk-grid', '');
+
+  const avatarDiv = document.createElement('div');
+  avatarDiv.classList.add('uk-width-auto');
+
+  const avatar = document.createElement('img');
+  avatar.classList.add('uk-comment-avatar');
+  avatar.src = imgUrl;
+  avatar.alt = 'identicon';
+  avatar.width = 80;
+  avatar.height = 80;
+
+  const metaDiv = document.createElement('div');
+  metaDiv.classList.add('uk-width-expand');
+
+  const h4Element = document.createElement('h4');
+  h4Element.classList.add('uk-comment-title', 'uk-margin-remove');
+  h4Element.innerText = comment.author;
+
+  const timeParagraph = document.createElement('p');
+  timeParagraph.classList.add('uk-comment-meta', 'uk-margin-remove-top');
+  timeParagraph.innerText = comment.timestamp;
+
+  const bodyDiv = document.createElement('div');
+  bodyDiv.classList.add('uk-comment-body');
+
+  const textParagraph = document.createElement('p');
+  textParagraph.innerText = comment.text;
+
+  avatarDiv.appendChild(avatar);
+  gridDiv.appendChild(avatarDiv);
+  metaDiv.appendChild(h4Element);
+  metaDiv.appendChild(timeParagraph);
+  gridDiv.appendChild(metaDiv);
+  headerElement.appendChild(gridDiv);
+  articleElement.appendChild(headerElement);
+  bodyDiv.appendChild(textParagraph);
+  articleElement.appendChild(bodyDiv);
+  listElement.appendChild(articleElement);
+
+  return listElement;
 }
