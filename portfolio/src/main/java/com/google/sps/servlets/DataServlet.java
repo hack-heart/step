@@ -17,6 +17,7 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -40,9 +41,13 @@ public class DataServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    int numComments = results.countEntities(FetchOptions.Builder.withDefaults());
+
+    List<Entity> limitedResults =
+        results.asList(FetchOptions.Builder.withLimit(getMaxComments(request, numComments)));
 
     List<Comment> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
+    for (Entity entity : limitedResults) {
       comments.add(convertEntityToComment(entity));
     }
 
@@ -70,6 +75,18 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 
+  /**
+   * Returns the maximum number of comments to display as received from the client
+   * Defaults to the total number of comments
+   */
+  private int getMaxComments(HttpServletRequest request, int numComments) {
+    try {
+      return Integer.parseInt(request.getParameter("maxComments"));
+    } catch (Exception e) {
+      return numComments;
+    }
+  }
+
   /** Makes timestamp human-readable */
   private static String formatTimestamp(long timestamp) {
     SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
@@ -83,7 +100,6 @@ public class DataServlet extends HttpServlet {
     String author = (String) entity.getProperty("author");
     String text = (String) entity.getProperty("text");
 
-    Comment comment = new Comment(id, formatTimestamp(timestamp), author, text);
-    return comment;
+    return new Comment(id, formatTimestamp(timestamp), author, text);
   }
 }
