@@ -16,8 +16,7 @@
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
-// Adds comments to the page once it loads
-addComments();
+fetchCommentsFromServer();
 
 /**
  * Adds a random quote from Pierce Brown's Red Rising to the page.
@@ -53,19 +52,87 @@ function addRandomQuote() {
 }
 
 /**
- * Adds comments returned from the server to the page.
+ *Renders comments from the server on the page
  */
-async function addComments() {
+async function fetchCommentsFromServer() {
   const response = await fetch('/data');
   const comments = await response.json();
   const commentsContainer = document.getElementById('comments-container');
-  comments.map((comment) => createListElement(comment))
-      .forEach((listElement) => commentsContainer.appendChild(listElement));
+  comments.map((comment) => transformCommentToListElement(comment))
+      .forEach((listElement) => {
+        commentsContainer.appendChild(listElement);
+      });
 }
 
-/** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+/**
+ * Transforms a comment object to a list element styled with UI Kit classes
+ */
+function transformCommentToListElement(comment) {
+  const identiconUrls = [
+    'images/identicon-1.png',
+    'images/identicon-2.png',
+    'images/identicon-3.png',
+    'images/identicon-4.png',
+    'images/identicon-5.png',
+    'images/identicon-6.png',
+    'images/identicon-7.png',
+    'images/identicon-8.png',
+  ];
+  // Pick a random identicon to use as an avatar
+  const avatarUrl =
+      identiconUrls[Math.floor(Math.random() * identiconUrls.length)];
+
+  const listElement = document.createElement('li');
+
+  const articleElement = document.createElement('article');
+  articleElement.classList.add(
+      'uk-comment', 'uk-visible-toggle', 'uk-comment-primary');
+  articleElement.tabIndex = -1;
+
+  const headerElement = document.createElement('header');
+  headerElement.classList.add('uk-comment-header', 'uk-position-relative');
+
+  const gridDiv = document.createElement('div');
+  gridDiv.classList.add('uk-grid-small', 'uk-flex-middle');
+  gridDiv.setAttribute('uk-grid', '');
+
+  const avatarDiv = document.createElement('div');
+  avatarDiv.classList.add('uk-width-auto');
+
+  const avatar = document.createElement('img');
+  avatar.classList.add('uk-comment-avatar');
+  avatar.src = avatarUrl;
+  avatar.alt = 'identicon';
+  avatar.width = 80;
+  avatar.height = 80;
+
+  const metaDiv = document.createElement('div');
+  metaDiv.classList.add('uk-width-expand');
+
+  const h4Element = document.createElement('h4');
+  h4Element.classList.add('uk-comment-title', 'uk-margin-remove');
+  h4Element.innerText = comment.author;
+
+  const timeParagraph = document.createElement('p');
+  timeParagraph.classList.add('uk-comment-meta', 'uk-margin-remove-top');
+  timeParagraph.innerText = comment.timestamp;
+
+  const bodyDiv = document.createElement('div');
+  bodyDiv.classList.add('uk-comment-body');
+
+  const textParagraph = document.createElement('p');
+  textParagraph.innerText = comment.text;
+
+  avatarDiv.appendChild(avatar);
+  gridDiv.appendChild(avatarDiv);
+  metaDiv.appendChild(h4Element);
+  metaDiv.appendChild(timeParagraph);
+  gridDiv.appendChild(metaDiv);
+  headerElement.appendChild(gridDiv);
+  articleElement.appendChild(headerElement);
+  bodyDiv.appendChild(textParagraph);
+  articleElement.appendChild(bodyDiv);
+  listElement.appendChild(articleElement);
+
+  return listElement;
 }

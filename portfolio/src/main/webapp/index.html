@@ -26,6 +26,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#comments">Comments</a></li>
           </ul>
         </div>
       </nav>
@@ -221,11 +222,16 @@
       </section>
       <br />
       <section id="comments">
+        <h2>Comments</h2>
+        <h3>Leave a comment</h3>
         <form action="/data" method="post">
-          <textarea type="text" name="text" placeholder="Write a comment"></textarea>
-          <button type="submit">Create</button>
+          <input class="uk-input" type="text" name="author" placeholder="Name" />
+          <br />
+          <textarea class="uk-textarea" rows="5" type="text" name="text" placeholder="Write a comment"></textarea>
+          <button class="uk-button" type="submit">Create</button>
         </form>
-        <ul id="comments-container"></ul>
+        <h3>See comments</h3>
+        <ul id="comments-container" class="uk-comment-list"></ul>
       </section>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit.min.js"></script>
