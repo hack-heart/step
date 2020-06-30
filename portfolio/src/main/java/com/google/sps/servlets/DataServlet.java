@@ -43,13 +43,7 @@ public class DataServlet extends HttpServlet {
 
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      String author = (String) entity.getProperty("author");
-      long id = entity.getKey().getId();
-      String text = (String) entity.getProperty("text");
-      long timestamp = (long) entity.getProperty("timestamp");
-
-      Comment comment = new Comment(author, id, text, formatTimestamp(timestamp));
-      comments.add(comment);
+      comments.add(convertEntityToComment(entity));
     }
 
     Gson gson = new Gson();
@@ -77,8 +71,19 @@ public class DataServlet extends HttpServlet {
   }
 
   /** Makes timestamp human-readable */
-  public String formatTimestamp(long timestamp) {
+  private static String formatTimestamp(long timestamp) {
     SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
     return timeFormatter.format(timestamp);
+  }
+
+  /** Constructs a comment object from a Datastore entity */
+  private static Comment convertEntityToComment(Entity entity) {
+    long id = entity.getKey().getId();
+    long timestamp = (long) entity.getProperty("timestamp");
+    String author = (String) entity.getProperty("author");
+    String text = (String) entity.getProperty("text");
+
+    Comment comment = new Comment(id, formatTimestamp(timestamp), author, text);
+    return comment;
   }
 }

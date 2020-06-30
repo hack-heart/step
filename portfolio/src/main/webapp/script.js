@@ -16,7 +16,7 @@
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
-addComments();
+fetchCommentsFromServer();
 
 /**
  * Adds a random quote from Pierce Brown's Red Rising to the page.
@@ -51,24 +51,36 @@ function addRandomQuote() {
   quoteContainer.innerText = quote;
 }
 
-/** Adds comments returned from the server to the page */
-async function addComments() {
+/**
+ *Renders comments from the server on the page
+ */
+async function fetchCommentsFromServer() {
   const response = await fetch('/data');
   const comments = await response.json();
   const commentsContainer = document.getElementById('comments-container');
-  comments.map((comment) => buildComment(comment)).forEach((listElement) => {
-    commentsContainer.appendChild(listElement);
-  });
+  comments.map((comment) => transformCommentToListElement(comment))
+      .forEach((listElement) => {
+        commentsContainer.appendChild(listElement);
+      });
 }
 
 /**
- * Builds up the comment body by nesting elements and assigning styling
- * classes from UI Kit
+ * Transforms a comment object to a list element styled with UI Kit classes
  */
-function buildComment(comment) {
-  // Pick a random identicon from the images folder
-  const imageIndex = Math.floor(Math.random() * 8) + 1;
-  const imgUrl = 'images/identicon-' + imageIndex + '.png';
+function transformCommentToListElement(comment) {
+  const identiconUrls = [
+    'images/identicon-1.png',
+    'images/identicon-2.png',
+    'images/identicon-3.png',
+    'images/identicon-4.png',
+    'images/identicon-5.png',
+    'images/identicon-6.png',
+    'images/identicon-7.png',
+    'images/identicon-8.png',
+  ];
+  // Pick a random identicon to use as an avatar
+  const avatarUrl =
+      identiconUrls[Math.floor(Math.random() * identiconUrls.length)];
 
   const listElement = document.createElement('li');
 
@@ -89,7 +101,7 @@ function buildComment(comment) {
 
   const avatar = document.createElement('img');
   avatar.classList.add('uk-comment-avatar');
-  avatar.src = imgUrl;
+  avatar.src = avatarUrl;
   avatar.alt = 'identicon';
   avatar.width = 80;
   avatar.height = 80;

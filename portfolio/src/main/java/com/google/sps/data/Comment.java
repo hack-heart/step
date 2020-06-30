@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,15 +16,15 @@ package com.google.sps.data;
 
 /** A comment on the portfolio page */
 public final class Comment {
-  private final String author;
   private final long id;
-  private final String text;
   private final String timestamp;
+  private final String author;
+  private final String text;
 
-  public Comment(String author, long id, String text, String timestamp) {
-    this.author = author;
+  public Comment(long id, String timestamp, String author, String text) {
     this.id = id;
-    this.text = text;
     this.timestamp = timestamp;
+    this.author = author;
+    this.text = text;
   }
 }
