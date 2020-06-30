@@ -16,7 +16,14 @@
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
-fetchCommentsFromServer();
+// Fetches the user-specified number of comments from the server
+const maxCommentsInput = document.getElementById('max-comments');
+maxCommentsInput.addEventListener('change', (event) => {
+  fetchCommentsFromServer(event.target.value);
+});
+
+// Server sends all comments by default
+fetchCommentsFromServer('');
 
 /**
  * Adds a random quote from Pierce Brown's Red Rising to the page.
@@ -54,10 +61,11 @@ function addRandomQuote() {
 /**
  *Renders comments from the server on the page
  */
-async function fetchCommentsFromServer() {
-  const response = await fetch('/data');
+async function fetchCommentsFromServer(maxComments) {
+  const response = await fetch(`/data?maxComments=${maxComments}`);
   const comments = await response.json();
   const commentsContainer = document.getElementById('comments-container');
+  removeAllChildNodes(commentsContainer);
   comments.map((comment) => transformCommentToListElement(comment))
       .forEach((listElement) => {
         commentsContainer.appendChild(listElement);
@@ -135,4 +143,13 @@ function transformCommentToListElement(comment) {
   listElement.appendChild(articleElement);
 
   return listElement;
+}
+
+/**
+ * Removes all child nodes of an HTML element
+ */
+function removeAllChildNodes(parentNode) {
+  while (parentNode.hasChildNodes()) {
+    parentNode.removeChild(parentNode.lastChild);
+  }
 }
