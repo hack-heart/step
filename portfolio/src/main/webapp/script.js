@@ -16,14 +16,18 @@
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
+// Server sends all comments by default
+fetchCommentsFromServer('');
+
 // Fetches the user-specified number of comments from the server
 const maxCommentsInput = document.getElementById('max-comments');
 maxCommentsInput.addEventListener('change', (event) => {
   fetchCommentsFromServer(event.target.value);
 });
 
-// Server sends all comments by default
-fetchCommentsFromServer('');
+// Deletes all comments when the delete button is clicked
+const deleteButton = document.getElementById('delete-button');
+deleteButton.addEventListener('click', deleteAllComments);
 
 /**
  * Adds a random quote from Pierce Brown's Red Rising to the page.
@@ -59,7 +63,7 @@ function addRandomQuote() {
 }
 
 /**
- *Renders comments from the server on the page
+ * Renders comments from the server on the page
  */
 async function fetchCommentsFromServer(maxComments) {
   const response = await fetch(`/data?maxComments=${maxComments}`);
@@ -70,6 +74,15 @@ async function fetchCommentsFromServer(maxComments) {
       .forEach((listElement) => {
         commentsContainer.appendChild(listElement);
       });
+}
+
+/**
+ * Deletes all comments
+ */
+function deleteAllComments() {
+  fetch('/delete-data', {method: 'POST'}).then(() => {
+    fetchCommentsFromServer('');
+  });
 }
 
 /**
