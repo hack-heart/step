@@ -18,7 +18,7 @@
     "esmify": "^2.1.1"
   },
   "scripts": {
-    "build": "yarn browserify portfolio/src/main/webapp/script.js -p esmify > portfolio/src/main/webapp/bundle.js",
+    "build": "yarn browserify portfolio/src/main/webapp/script.js -p esmify > portfolio/src/main/webapp/generated-files/bundle.js",
     "start": "cd portfolio; mvn package appengine:run",
     "prettify": "make pretty; make validate && yarn build",
     "deploy": "cd portfolio; mvn package appengine:deploy",

@@ -1886,6 +1886,9 @@ function transformCommentToListElement(comment) {
   return listElement;
 }
 
+/**
+ * Constructs a comment template from a comment object and an avatar url
+ */
 function commentTemplate(comment, avatarUrl) {
   return litHtml.html`
   <article
