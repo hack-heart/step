@@ -4,19 +4,23 @@
   "description": "",
   "main": "portfolio/src/main/webapp/script.js",
   "dependencies": {
+    "browserify": "^16.5.1",
     "clang-format": "^1.4.0",
     "css-validator": "^0.9.0",
     "html-validate": "^3.0.0",
+    "lit-html": "^1.2.1",
     "prettier": "^2.0.5",
     "uikit": "^3.5.4"
   },
   "devDependencies": {
     "eslint": "^7.3.1",
-    "eslint-config-google": "^0.14.0"
+    "eslint-config-google": "^0.14.0",
+    "esmify": "^2.1.1"
   },
   "scripts": {
+    "build": "yarn browserify portfolio/src/main/webapp/script.js -p esmify > portfolio/src/main/webapp/bundle.js",
     "start": "cd portfolio; mvn package appengine:run",
-    "prettify": "make pretty; make validate",
+    "prettify": "make pretty; make validate && yarn build",
     "deploy": "cd portfolio; mvn package appengine:deploy",
     "test": "echo \"no test found\" && exit 1"
   },
