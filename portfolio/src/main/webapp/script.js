@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// eslint-disable-next-line no-undef
+const litHtml = require('lit-html');
+
 // Shows a quote when the quote button is clicked
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
@@ -104,58 +107,42 @@ function transformCommentToListElement(comment) {
       identiconUrls[Math.floor(Math.random() * identiconUrls.length)];
 
   const listElement = document.createElement('li');
-
-  const articleElement = document.createElement('article');
-  articleElement.classList.add(
-      'uk-comment', 'uk-visible-toggle', 'uk-comment-primary');
-  articleElement.tabIndex = -1;
-
-  const headerElement = document.createElement('header');
-  headerElement.classList.add('uk-comment-header', 'uk-position-relative');
-
-  const gridDiv = document.createElement('div');
-  gridDiv.classList.add('uk-grid-small', 'uk-flex-middle');
-  gridDiv.setAttribute('uk-grid', '');
-
-  const avatarDiv = document.createElement('div');
-  avatarDiv.classList.add('uk-width-auto');
-
-  const avatar = document.createElement('img');
-  avatar.classList.add('uk-comment-avatar');
-  avatar.src = avatarUrl;
-  avatar.alt = 'identicon';
-  avatar.width = 80;
-  avatar.height = 80;
-
-  const metaDiv = document.createElement('div');
-  metaDiv.classList.add('uk-width-expand');
-
-  const h4Element = document.createElement('h4');
-  h4Element.classList.add('uk-comment-title', 'uk-margin-remove');
-  h4Element.innerText = comment.author;
-
-  const timeParagraph = document.createElement('p');
-  timeParagraph.classList.add('uk-comment-meta', 'uk-margin-remove-top');
-  timeParagraph.innerText = comment.timestamp;
-
-  const bodyDiv = document.createElement('div');
-  bodyDiv.classList.add('uk-comment-body');
-
-  const textParagraph = document.createElement('p');
-  textParagraph.innerText = comment.text;
-
-  avatarDiv.appendChild(avatar);
-  gridDiv.appendChild(avatarDiv);
-  metaDiv.appendChild(h4Element);
-  metaDiv.appendChild(timeParagraph);
-  gridDiv.appendChild(metaDiv);
-  headerElement.appendChild(gridDiv);
-  articleElement.appendChild(headerElement);
-  bodyDiv.appendChild(textParagraph);
-  articleElement.appendChild(bodyDiv);
-  listElement.appendChild(articleElement);
+  litHtml.render(commentTemplate(comment, avatarUrl), listElement);
 
   return listElement;
+}
+
+/**
+ * Constructs a comment template from a comment object and an avatar url
+ */
+function commentTemplate(comment, avatarUrl) {
+  return litHtml.html`
+  <article
+    class="uk-comment uk-visible-toggle uk-comment-primary"
+    tabindex="-1"
+  >
+    <header class="uk-comment-header uk-position-relative">
+      <div class="uk-grid-small uk-flex-middle uk-grid" uk-grid="">
+        <div class="uk-width-auto uk-first-column">
+          <img
+            class="uk-comment-avatar"
+            src=${avatarUrl}
+            alt="identicon"
+            width="80"
+            height="80"
+          />
+        </div>
+        <div class="uk-width-expand">
+          <h4 class="uk-comment-title uk-margin-remove">${comment.author}</h4>
+          <p class="uk-comment-meta uk-margin-remove-top">
+          ${comment.timestamp}
+          </p>
+        </div>
+      </div>
+    </header>
+    <div class="uk-comment-body"><p>${comment.text}</p></div>
+  </article>
+  `;
 }
 
 /**
