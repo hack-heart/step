@@ -36,6 +36,10 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns comments from datastore */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  private String[] imgUrls = {"images/identicon-1.png", "images/identicon-2.png",
+      "images/identicon-3.png", "images/identicon-4.png", "images/identicon-5.png",
+      "images/identicon-6.png", "images/identicon-7.png", "images/identicon-8.png"};
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
@@ -106,11 +110,7 @@ public class DataServlet extends HttpServlet {
   }
 
   /** Returns a random image URL for a comment's avatar */
-  private static String getRandomImageUrl() {
-    String[] allUrls = {"images/identicon-1.png", "images/identicon-2.png",
-        "images/identicon-3.png", "images/identicon-4.png", "images/identicon-5.png",
-        "images/identicon-6.png", "images/identicon-7.png", "images/identicon-8.png"};
-
-    return allUrls[(int) (Math.random() * allUrls.length)];
+  private String getRandomImageUrl() {
+    return imgUrls[(int) (Math.random() * imgUrls.length)];
   }
 }

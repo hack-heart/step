@@ -1852,25 +1852,23 @@ async function fetchCommentsFromServer(maxComments) {
       .forEach((listElement) => {
         commentsContainer.appendChild(listElement);
       });
-  deleteCommentOnClick();
+  addEventListenersToDeleteButtons();
 }
 
 /**
  * Deletes an individual comment
  */
-function deleteComment(commentId) {
-  fetch(`/delete-comment?id=${commentId}`, {method: 'POST'}).then(() => {
-    fetchCommentsFromServer('');
-  });
+async function deleteComment(commentId) {
+  await fetch(`/delete-comment?id=${commentId}`, {method: 'POST'});
+  fetchCommentsFromServer('');
 }
 
 /**
  * Deletes all comments
  */
-function deleteAllComments() {
-  fetch('/delete-data', {method: 'POST'}).then(() => {
-    fetchCommentsFromServer('');
-  });
+async function deleteAllComments() {
+  await fetch('/delete-data', {method: 'POST'});
+  fetchCommentsFromServer('');
 }
 
 /**
@@ -1884,9 +1882,10 @@ function transformCommentToListElement(comment) {
 }
 
 /**
- * Deletes a comment when its associated delete button is clicked
+ * Adds onclick event listeners to all the delete buttons to delete their
+ * associated comments
  */
-function deleteCommentOnClick() {
+function addEventListenersToDeleteButtons() {
   const deleteOneButtons = document.querySelectorAll('.delete-one');
   deleteOneButtons.forEach((deleteOneButton) => {
     deleteOneButton.addEventListener('click', () => {
