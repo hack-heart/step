@@ -66,6 +66,20 @@ function addRandomQuote() {
 }
 
 /**
+ * Unhides the create comments form if the user is logged in, otherwise
+ * shows a login link
+ */
+async function showFormOrLoginLink() {
+  const response = await fetch('/login-status');
+  const loginStatus = await response.json();
+  if (loginStatus) {
+    document.getElementById('new-comment-form').visibility = 'visible';
+  } else {
+    document.getElementById('login-link').innerText = '';
+  }
+}
+
+/**
  * Renders comments from the server on the page, adding the onclick event
  * listeners for all of them
  */

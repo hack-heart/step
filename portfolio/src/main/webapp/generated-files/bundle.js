@@ -1,13 +1,40 @@
-// $ /home/cchiwike/step/node_modules/.bin/browserify portfolio/src/main/webapp/script.js -p esmify
-(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-"use strict";
+// $ /home/cchiwike/step/node_modules/.bin/browserify
+// portfolio/src/main/webapp/script.js -p esmify
+(function() {
+function r(e, n, t) {
+  function o(i, f) {
+    if (!n[i]) {
+      if (!e[i]) {
+        var c = 'function' == typeof require && require;
+        if (!f && c) return c(i, !0);
+        if (u) return u(i, !0);
+        var a = new Error('Cannot find module \'' + i + '\'');
+        throw a.code = 'MODULE_NOT_FOUND', a
+      }
+      var p = n[i] = {exports: {}};
+      e[i][0].call(p.exports, function(r) {
+        var n = e[i][1][r];
+        return o(n || r)
+      }, p, p.exports, r, e, n, t)
+    }
+    return n[i].exports
+  }
+  for (var u = 'function' == typeof require && require, i = 0; i < t.length;
+       i++)
+    o(t[i]);
+  return o
+}
+return r
+})()(
+    {
+      1: [
+        function(require, module, exports) {
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, '__esModule', {value: true});
 exports.defaultTemplateProcessor = exports.DefaultTemplateProcessor = void 0;
 
-var _parts = require("./parts.js");
+var _parts = require('./parts.js');
 
 /**
  * @license
@@ -40,12 +67,14 @@ class DefaultTemplateProcessor {
     const prefix = name[0];
 
     if (prefix === '.') {
-      const committer = new _parts.PropertyCommitter(element, name.slice(1), strings);
+      const committer =
+          new _parts.PropertyCommitter(element, name.slice(1), strings);
       return committer.parts;
     }
 
     if (prefix === '@') {
-      return [new _parts.EventPart(element, name.slice(1), options.eventContext)];
+      return [new _parts.EventPart(
+          element, name.slice(1), options.eventContext)];
     }
 
     if (prefix === '?') {
@@ -64,19 +93,19 @@ class DefaultTemplateProcessor {
   handleTextExpression(options) {
     return new _parts.NodePart(options);
   }
-
 }
 
 exports.DefaultTemplateProcessor = DefaultTemplateProcessor;
 const defaultTemplateProcessor = new DefaultTemplateProcessor();
 exports.defaultTemplateProcessor = defaultTemplateProcessor;
+        },
+        {'./parts.js': 5}
+      ],
+      2: [
+        function(require, module, exports) {
+'use strict';
 
-},{"./parts.js":5}],2:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, '__esModule', {value: true});
 exports.isDirective = exports.directive = void 0;
 
 /**
@@ -147,13 +176,14 @@ const isDirective = o => {
 };
 
 exports.isDirective = isDirective;
+        },
+        {}
+      ],
+      3: [
+        function(require, module, exports) {
+'use strict';
 
-},{}],3:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, '__esModule', {value: true});
 exports.removeNodes = exports.reparentNodes = exports.isCEPolyfill = void 0;
 
 /**
@@ -173,7 +203,9 @@ exports.removeNodes = exports.reparentNodes = exports.isCEPolyfill = void 0;
 /**
  * True if the custom elements polyfill is in use.
  */
-const isCEPolyfill = typeof window !== 'undefined' && window.customElements != null && window.customElements.polyfillWrapFlushCallback !== undefined;
+const isCEPolyfill = typeof window !== 'undefined' &&
+    window.customElements != null &&
+    window.customElements.polyfillWrapFlushCallback !== undefined;
 /**
  * Reparents nodes, starting from `start` (inclusive) to `end` (exclusive),
  * into another container (could be the same container), before `before`. If
@@ -206,13 +238,14 @@ const removeNodes = (container, start, end = null) => {
 };
 
 exports.removeNodes = removeNodes;
+        },
+        {}
+      ],
+      4: [
+        function(require, module, exports) {
+'use strict';
 
-},{}],4:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, '__esModule', {value: true});
 exports.nothing = exports.noChange = void 0;
 
 /**
@@ -241,26 +274,30 @@ const noChange = {};
 exports.noChange = noChange;
 const nothing = {};
 exports.nothing = nothing;
+        },
+        {}
+      ],
+      5: [
+        function(require, module, exports) {
+'use strict';
 
-},{}],5:[function(require,module,exports){
-"use strict";
+Object.defineProperty(exports, '__esModule', {value: true});
+exports.EventPart = exports.PropertyPart = exports.PropertyCommitter =
+    exports.BooleanAttributePart = exports.NodePart = exports.AttributePart =
+        exports.AttributeCommitter = exports.isIterable = exports.isPrimitive =
+            void 0;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.EventPart = exports.PropertyPart = exports.PropertyCommitter = exports.BooleanAttributePart = exports.NodePart = exports.AttributePart = exports.AttributeCommitter = exports.isIterable = exports.isPrimitive = void 0;
+var _directive = require('./directive.js');
 
-var _directive = require("./directive.js");
+var _dom = require('./dom.js');
 
-var _dom = require("./dom.js");
+var _part = require('./part.js');
 
-var _part = require("./part.js");
+var _templateInstance = require('./template-instance.js');
 
-var _templateInstance = require("./template-instance.js");
+var _templateResult = require('./template-result.js');
 
-var _templateResult = require("./template-result.js");
-
-var _template = require("./template.js");
+var _template = require('./template.js');
 
 /**
  * @license
@@ -280,14 +317,16 @@ var _template = require("./template.js");
  * @module lit-html
  */
 const isPrimitive = value => {
-  return value === null || !(typeof value === 'object' || typeof value === 'function');
+  return value === null ||
+      !(typeof value === 'object' || typeof value === 'function');
 };
 
 exports.isPrimitive = isPrimitive;
 
 const isIterable = value => {
-  return Array.isArray(value) || // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  !!(value && value[Symbol.iterator]);
+  return Array.isArray(value) ||  // eslint-disable-next-line
+                                  // @typescript-eslint/no-explicit-any
+      !!(value && value[Symbol.iterator]);
 };
 /**
  * Writes attribute values to the DOM for a group of AttributeParts bound to a
@@ -351,7 +390,6 @@ class AttributeCommitter {
       this.element.setAttribute(this.name, this._getValue());
     }
   }
-
 }
 /**
  * A Part that controls all or part of an attribute value.
@@ -367,8 +405,10 @@ class AttributePart {
   }
 
   setValue(value) {
-    if (value !== _part.noChange && (!isPrimitive(value) || value !== this.value)) {
-      this.value = value; // If the value is a not a directive, dirty the committer so that it'll
+    if (value !== _part.noChange &&
+        (!isPrimitive(value) || value !== this.value)) {
+      this.value = value;  // If the value is a not a directive, dirty the
+                           // committer so that it'll
       // call setAttribute. If the value is a directive, it'll dirty the
       // committer if it calls setValue().
 
@@ -391,7 +431,6 @@ class AttributePart {
 
     this.committer.commit();
   }
-
 }
 /**
  * A Part that controls a location within a Node tree. Like a Range, NodePart
@@ -519,19 +558,22 @@ class NodePart {
 
   __commitText(value) {
     const node = this.startNode.nextSibling;
-    value = value == null ? '' : value; // If `value` isn't already a string, we explicitly convert it here in case
+    value =
+        value == null ? '' : value;  // If `value` isn't already a string, we
+                                     // explicitly convert it here in case
     // it can't be implicitly converted - i.e. it's a symbol.
 
     const valueAsString = typeof value === 'string' ? value : String(value);
 
-    if (node === this.endNode.previousSibling && node.nodeType === 3
-    /* Node.TEXT_NODE */
+    if (
+        node === this.endNode.previousSibling && node.nodeType === 3
+        /* Node.TEXT_NODE */
     ) {
-        // If we only have a single text node between the markers, we can just
-        // set its value, rather than replacing it.
-        // TODO(justinfagnani): Can we just check if this.value is primitive?
-        node.data = valueAsString;
-      } else {
+      // If we only have a single text node between the markers, we can just
+      // set its value, rather than replacing it.
+      // TODO(justinfagnani): Can we just check if this.value is primitive?
+      node.data = valueAsString;
+    } else {
       this.__commitNode(document.createTextNode(valueAsString));
     }
 
@@ -541,14 +583,16 @@ class NodePart {
   __commitTemplateResult(value) {
     const template = this.options.templateFactory(value);
 
-    if (this.value instanceof _templateInstance.TemplateInstance && this.value.template === template) {
+    if (this.value instanceof _templateInstance.TemplateInstance &&
+        this.value.template === template) {
       this.value.update(value.values);
     } else {
       // Make sure we propagate the template processor from the TemplateResult
       // so that we use its syntax extension, etc. The template factory comes
       // from the render function options so that it can control template
       // caching and preprocessing.
-      const instance = new _templateInstance.TemplateInstance(template, value.processor, this.options);
+      const instance = new _templateInstance.TemplateInstance(
+          template, value.processor, this.options);
 
       const fragment = instance._clone();
 
@@ -573,7 +617,8 @@ class NodePart {
     if (!Array.isArray(this.value)) {
       this.value = [];
       this.clear();
-    } // Lets us keep track of how many items we stamped so we can clear leftover
+    }  // Lets us keep track of how many items we stamped so we can clear
+       // leftover
     // items from a previous render
 
 
@@ -583,7 +628,7 @@ class NodePart {
 
     for (const item of value) {
       // Try to reuse an existing part
-      itemPart = itemParts[partIndex]; // If no existing part, create a new one
+      itemPart = itemParts[partIndex];  // If no existing part, create a new one
 
       if (itemPart === undefined) {
         itemPart = new NodePart(this.options);
@@ -609,9 +654,9 @@ class NodePart {
   }
 
   clear(startNode = this.startNode) {
-    (0, _dom.removeNodes)(this.startNode.parentNode, startNode.nextSibling, this.endNode);
+    (0, _dom.removeNodes)(
+        this.startNode.parentNode, startNode.nextSibling, this.endNode);
   }
-
 }
 /**
  * Implements a boolean attribute, roughly as defined in the HTML
@@ -630,7 +675,8 @@ class BooleanAttributePart {
     this.__pendingValue = undefined;
 
     if (strings.length !== 2 || strings[0] !== '' || strings[1] !== '') {
-      throw new Error('Boolean attributes can only contain a single expression');
+      throw new Error(
+          'Boolean attributes can only contain a single expression');
     }
 
     this.element = element;
@@ -667,7 +713,6 @@ class BooleanAttributePart {
 
     this.__pendingValue = _part.noChange;
   }
-
 }
 /**
  * Sets attribute values for PropertyParts, so that the value is only set once
@@ -685,7 +730,8 @@ exports.BooleanAttributePart = BooleanAttributePart;
 class PropertyCommitter extends AttributeCommitter {
   constructor(element, name, strings) {
     super(element, name, strings);
-    this.single = strings.length === 2 && strings[0] === '' && strings[1] === '';
+    this.single =
+        strings.length === 2 && strings[0] === '' && strings[1] === '';
   }
 
   _createPart() {
@@ -702,24 +748,26 @@ class PropertyCommitter extends AttributeCommitter {
 
   commit() {
     if (this.dirty) {
-      this.dirty = false; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.dirty =
+          false;  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
       this.element[this.name] = this._getValue();
     }
   }
-
 }
 
 exports.PropertyCommitter = PropertyCommitter;
 
-class PropertyPart extends AttributePart {} // Detect event listener options support. If the `capture` property is read
+class PropertyPart extends AttributePart {
+}  // Detect event listener options support. If the `capture` property is read
 // from the options object, then options are supported. If not, then the third
 // argument to add/removeEventListener is interpreted as the boolean capture
 // value so we should only pass the `capture` property.
 
 
 exports.PropertyPart = PropertyPart;
-let eventOptionsSupported = false; // Wrap into an IIFE because MS Edge <= v41 does not support having try/catch
+let eventOptionsSupported = false;  // Wrap into an IIFE because MS Edge <= v41
+                                    // does not support having try/catch
 // blocks right into the body of a module
 
 (() => {
@@ -730,12 +778,14 @@ let eventOptionsSupported = false; // Wrap into an IIFE because MS Edge <= v41 d
         return false;
       }
 
-    }; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    };  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
-    window.addEventListener('test', options, options); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    window.addEventListener(
+        'test', options, options);  // eslint-disable-next-line
+                                    // @typescript-eslint/no-explicit-any
 
     window.removeEventListener('test', options, options);
-  } catch (_e) {// event options not supported
+  } catch (_e) {  // event options not supported
   }
 })();
 
@@ -767,16 +817,23 @@ class EventPart {
 
     const newListener = this.__pendingValue;
     const oldListener = this.value;
-    const shouldRemoveListener = newListener == null || oldListener != null && (newListener.capture !== oldListener.capture || newListener.once !== oldListener.once || newListener.passive !== oldListener.passive);
-    const shouldAddListener = newListener != null && (oldListener == null || shouldRemoveListener);
+    const shouldRemoveListener = newListener == null ||
+        oldListener != null &&
+            (newListener.capture !== oldListener.capture ||
+             newListener.once !== oldListener.once ||
+             newListener.passive !== oldListener.passive);
+    const shouldAddListener =
+        newListener != null && (oldListener == null || shouldRemoveListener);
 
     if (shouldRemoveListener) {
-      this.element.removeEventListener(this.eventName, this.__boundHandleEvent, this.__options);
+      this.element.removeEventListener(
+          this.eventName, this.__boundHandleEvent, this.__options);
     }
 
     if (shouldAddListener) {
       this.__options = getOptions(newListener);
-      this.element.addEventListener(this.eventName, this.__boundHandleEvent, this.__options);
+      this.element.addEventListener(
+          this.eventName, this.__boundHandleEvent, this.__options);
     }
 
     this.value = newListener;
@@ -791,32 +848,40 @@ class EventPart {
     }
   }
 
-} // We copy options because of the inconsistent behavior of browsers when reading
+}  // We copy options because of the inconsistent behavior of browsers when
+   // reading
 // the third argument of add/removeEventListener. IE11 doesn't support options
 // at all. Chrome 41 only reads `capture` if the argument is an object.
 
 
 exports.EventPart = EventPart;
 
-const getOptions = o => o && (eventOptionsSupported ? {
-  capture: o.capture,
-  passive: o.passive,
-  once: o.once
-} : o.capture);
+const getOptions = o => o &&
+    (eventOptionsSupported ?
+         {capture: o.capture, passive: o.passive, once: o.once} :
+         o.capture);
+        },
+        {
+          './directive.js': 2,
+          './dom.js': 3,
+          './part.js': 4,
+          './template-instance.js': 8,
+          './template-result.js': 9,
+          './template.js': 10
+        }
+      ],
+      6: [
+        function(require, module, exports) {
+'use strict';
 
-},{"./directive.js":2,"./dom.js":3,"./part.js":4,"./template-instance.js":8,"./template-result.js":9,"./template.js":10}],6:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, '__esModule', {value: true});
 exports.render = exports.parts = void 0;
 
-var _dom = require("./dom.js");
+var _dom = require('./dom.js');
 
-var _parts = require("./parts.js");
+var _parts = require('./parts.js');
 
-var _templateFactory = require("./template-factory.js");
+var _templateFactory = require('./template-factory.js');
 
 /**
  * @license
@@ -859,9 +924,10 @@ const render = (result, container, options) => {
 
   if (part === undefined) {
     (0, _dom.removeNodes)(container, container.firstChild);
-    parts.set(container, part = new _parts.NodePart(Object.assign({
-      templateFactory: _templateFactory.templateFactory
-    }, options)));
+    parts.set(
+        container,
+        part = new _parts.NodePart(Object.assign(
+            {templateFactory: _templateFactory.templateFactory}, options)));
     part.appendInto(container);
   }
 
@@ -870,17 +936,18 @@ const render = (result, container, options) => {
 };
 
 exports.render = render;
+        },
+        {'./dom.js': 3, './parts.js': 5, './template-factory.js': 7}
+      ],
+      7: [
+        function(require, module, exports) {
+'use strict';
 
-},{"./dom.js":3,"./parts.js":5,"./template-factory.js":7}],7:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, '__esModule', {value: true});
 exports.templateFactory = templateFactory;
 exports.templateCaches = void 0;
 
-var _template = require("./template.js");
+var _template = require('./template.js');
 
 /**
  * @license
@@ -904,10 +971,7 @@ function templateFactory(result) {
   let templateCache = templateCaches.get(result.type);
 
   if (templateCache === undefined) {
-    templateCache = {
-      stringsArray: new WeakMap(),
-      keyString: new Map()
-    };
+    templateCache = {stringsArray: new WeakMap(), keyString: new Map()};
     templateCaches.set(result.type, templateCache);
   }
 
@@ -915,20 +979,23 @@ function templateFactory(result) {
 
   if (template !== undefined) {
     return template;
-  } // If the TemplateStringsArray is new, generate a key from the strings
+  }  // If the TemplateStringsArray is new, generate a key from the strings
   // This key is shared between all templates with identical content
 
 
-  const key = result.strings.join(_template.marker); // Check if we already have a Template for this key
+  const key = result.strings.join(
+      _template.marker);  // Check if we already have a Template for this key
 
   template = templateCache.keyString.get(key);
 
   if (template === undefined) {
     // If we have not seen this key before, create a new Template
-    template = new _template.Template(result, result.getTemplateElement()); // Cache the Template for this key
+    template = new _template.Template(
+        result,
+        result.getTemplateElement());  // Cache the Template for this key
 
     templateCache.keyString.set(key, template);
-  } // Cache all future queries for this TemplateStringsArray
+  }  // Cache all future queries for this TemplateStringsArray
 
 
   templateCache.stringsArray.set(result.strings, template);
@@ -937,18 +1004,19 @@ function templateFactory(result) {
 
 const templateCaches = new Map();
 exports.templateCaches = templateCaches;
+        },
+        {'./template.js': 10}
+      ],
+      8: [
+        function(require, module, exports) {
+'use strict';
 
-},{"./template.js":10}],8:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, '__esModule', {value: true});
 exports.TemplateInstance = void 0;
 
-var _dom = require("./dom.js");
+var _dom = require('./dom.js');
 
-var _template = require("./template.js");
+var _template = require('./template.js');
 
 /**
  * @license
@@ -1036,17 +1104,25 @@ class TemplateInstance {
     // The Custom Elements v1 polyfill supports upgrade(), so the order when
     // polyfilled is the more ideal: Clone, Process, Adopt, Upgrade, Update,
     // Connect.
-    const fragment = _dom.isCEPolyfill ? this.template.element.content.cloneNode(true) : document.importNode(this.template.element.content, true);
+    const fragment = _dom.isCEPolyfill ?
+        this.template.element.content.cloneNode(true) :
+        document.importNode(this.template.element.content, true);
     const stack = [];
-    const parts = this.template.parts; // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
+    const parts = this.template.parts;  // Edge needs all 4 parameters present;
+                                        // IE11 needs 3rd parameter to be null
 
-    const walker = document.createTreeWalker(fragment, 133
-    /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */
-    , null, false);
+    const walker = document.createTreeWalker(
+        fragment,
+        133
+        /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */
+        ,
+        null, false);
     let partIndex = 0;
     let nodeIndex = 0;
     let part;
-    let node = walker.nextNode(); // Loop through all the nodes and parts of a template
+    let node =
+        walker
+            .nextNode();  // Loop through all the nodes and parts of a template
 
     while (partIndex < parts.length) {
       part = parts[partIndex];
@@ -1056,7 +1132,7 @@ class TemplateInstance {
 
         partIndex++;
         continue;
-      } // Progress the tree walker until we find our next part's node.
+      }  // Progress the tree walker until we find our next part's node.
       // Note that multiple parts may share the same node (attribute parts
       // on a single element), so this loop may not run at all.
 
@@ -1077,7 +1153,7 @@ class TemplateInstance {
           walker.currentNode = stack.pop();
           node = walker.nextNode();
         }
-      } // We've arrived at our part's node.
+      }  // We've arrived at our part's node.
 
 
       if (part.type === 'node') {
@@ -1086,7 +1162,8 @@ class TemplateInstance {
 
         this.__parts.push(part);
       } else {
-        this.__parts.push(...this.processor.handleAttributeExpressions(node, part.name, part.strings, this.options));
+        this.__parts.push(...this.processor.handleAttributeExpressions(
+            node, part.name, part.strings, this.options));
       }
 
       partIndex++;
@@ -1099,22 +1176,22 @@ class TemplateInstance {
 
     return fragment;
   }
-
 }
 
 exports.TemplateInstance = TemplateInstance;
+        },
+        {'./dom.js': 3, './template.js': 10}
+      ],
+      9: [
+        function(require, module, exports) {
+'use strict';
 
-},{"./dom.js":3,"./template.js":10}],9:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, '__esModule', {value: true});
 exports.SVGTemplateResult = exports.TemplateResult = void 0;
 
-var _dom = require("./dom.js");
+var _dom = require('./dom.js');
 
-var _template = require("./template.js");
+var _template = require('./template.js');
 
 /**
  * @license
@@ -1157,7 +1234,8 @@ class TemplateResult {
     let isCommentBinding = false;
 
     for (let i = 0; i < l; i++) {
-      const s = this.strings[i]; // For each binding we want to determine the kind of marker to insert
+      const s = this.strings[i];  // For each binding we want to determine the
+                                  // kind of marker to insert
       // into the template source before it's parsed by the browser's HTML
       // parser. The marker type is based on whether the expression is in an
       // attribute, text, or comment position.
@@ -1175,11 +1253,16 @@ class TemplateResult {
       // whether a binding is inside a comment, and if not, if it appears to be
       // the first binding in an attribute.
 
-      const commentOpen = s.lastIndexOf('<!--'); // We're in comment position if we have a comment open with no following
+      const commentOpen =
+          s.lastIndexOf('<!--');  // We're in comment position if we have a
+                                  // comment open with no following
       // comment close. Because <-- can appear in an attribute value there can
       // be false positives.
 
-      isCommentBinding = (commentOpen > -1 || isCommentBinding) && s.indexOf('-->', commentOpen + 1) === -1; // Check to see if we have an attribute-like sequence preceding the
+      isCommentBinding = (commentOpen > -1 || isCommentBinding) &&
+          s.indexOf('-->', commentOpen + 1) ===
+              -1;  // Check to see if we have an attribute-like sequence
+                   // preceding the
       // expression. This can match "name=value" like structures in text,
       // comments, and attribute values, so there can be false-positives.
 
@@ -1196,7 +1279,9 @@ class TemplateResult {
         // For attributes we use just a marker sentinel, and also append a
         // $lit$ suffix to the name to opt-out of attribute-specific parsing
         // that IE and Edge do for style and certain SVG attributes.
-        html += s.substr(0, attributeMatch.index) + attributeMatch[1] + attributeMatch[2] + _template.boundAttributeSuffix + attributeMatch[3] + _template.marker;
+        html += s.substr(0, attributeMatch.index) + attributeMatch[1] +
+            attributeMatch[2] + _template.boundAttributeSuffix +
+            attributeMatch[3] + _template.marker;
       }
     }
 
@@ -1209,7 +1294,6 @@ class TemplateResult {
     template.innerHTML = this.getHTML();
     return template;
   }
-
 }
 /**
  * A TemplateResult for SVG fragments.
@@ -1235,18 +1319,21 @@ class SVGTemplateResult extends TemplateResult {
     (0, _dom.reparentNodes)(content, svgElement.firstChild);
     return template;
   }
-
 }
 
 exports.SVGTemplateResult = SVGTemplateResult;
+        },
+        {'./dom.js': 3, './template.js': 10}
+      ],
+      10: [
+        function(require, module, exports) {
+'use strict';
 
-},{"./dom.js":3,"./template.js":10}],10:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.lastAttributeNameRegex = exports.createMarker = exports.isTemplatePartActive = exports.Template = exports.boundAttributeSuffix = exports.markerRegex = exports.nodeMarker = exports.marker = void 0;
+Object.defineProperty(exports, '__esModule', {value: true});
+exports.lastAttributeNameRegex = exports.createMarker =
+    exports.isTemplatePartActive = exports.Template =
+        exports.boundAttributeSuffix = exports.markerRegex =
+            exports.nodeMarker = exports.marker = void 0;
 
 /**
  * @license
@@ -1293,23 +1380,23 @@ class Template {
     this.parts = [];
     this.element = element;
     const nodesToRemove = [];
-    const stack = []; // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
+    const stack = [];  // Edge needs all 4 parameters present; IE11 needs 3rd
+                       // parameter to be null
 
-    const walker = document.createTreeWalker(element.content, 133
-    /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */
-    , null, false); // Keeps track of the last index associated with a part. We try to delete
+    const walker = document.createTreeWalker(
+        element.content,
+        133
+        /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */
+        ,
+        null, false);  // Keeps track of the last index associated with a part.
+                       // We try to delete
     // unnecessary nodes, but we never want to associate two different parts
     // to the same index. They must have a constant node between.
 
     let lastPartIndex = 0;
     let index = -1;
     let partIndex = 0;
-    const {
-      strings,
-      values: {
-        length
-      }
-    } = result;
+    const {strings, values: {length}} = result;
 
     while (partIndex < length) {
       const node = walker.nextNode();
@@ -1325,155 +1412,151 @@ class Template {
 
       index++;
 
-      if (node.nodeType === 1
-      /* Node.ELEMENT_NODE */
+      if (
+          node.nodeType === 1
+          /* Node.ELEMENT_NODE */
       ) {
-          if (node.hasAttributes()) {
-            const attributes = node.attributes;
-            const {
-              length
-            } = attributes; // Per
-            // https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap,
-            // attributes are not guaranteed to be returned in document order.
-            // In particular, Edge/IE can return them out of order, so we cannot
-            // assume a correspondence between part index and attribute index.
+        if (node.hasAttributes()) {
+          const attributes = node.attributes;
+          const {length} = attributes;  // Per
+          // https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap,
+          // attributes are not guaranteed to be returned in document order.
+          // In particular, Edge/IE can return them out of order, so we cannot
+          // assume a correspondence between part index and attribute index.
 
-            let count = 0;
+          let count = 0;
 
-            for (let i = 0; i < length; i++) {
-              if (endsWith(attributes[i].name, boundAttributeSuffix)) {
-                count++;
-              }
-            }
-
-            while (count-- > 0) {
-              // Get the template literal section leading up to the first
-              // expression in this attribute
-              const stringForPart = strings[partIndex]; // Find the attribute name
-
-              const name = lastAttributeNameRegex.exec(stringForPart)[2]; // Find the corresponding attribute
-              // All bound attributes have had a suffix added in
-              // TemplateResult#getHTML to opt out of special attribute
-              // handling. To look up the attribute value we also need to add
-              // the suffix.
-
-              const attributeLookupName = name.toLowerCase() + boundAttributeSuffix;
-              const attributeValue = node.getAttribute(attributeLookupName);
-              node.removeAttribute(attributeLookupName);
-              const statics = attributeValue.split(markerRegex);
-              this.parts.push({
-                type: 'attribute',
-                index,
-                name,
-                strings: statics
-              });
-              partIndex += statics.length - 1;
+          for (let i = 0; i < length; i++) {
+            if (endsWith(attributes[i].name, boundAttributeSuffix)) {
+              count++;
             }
           }
 
-          if (node.tagName === 'TEMPLATE') {
-            stack.push(node);
-            walker.currentNode = node.content;
-          }
-        } else if (node.nodeType === 3
-      /* Node.TEXT_NODE */
-      ) {
-          const data = node.data;
+          while (count-- > 0) {
+            // Get the template literal section leading up to the first
+            // expression in this attribute
+            const stringForPart =
+                strings[partIndex];  // Find the attribute name
 
-          if (data.indexOf(marker) >= 0) {
-            const parent = node.parentNode;
-            const strings = data.split(markerRegex);
-            const lastIndex = strings.length - 1; // Generate a new text node for each literal section
-            // These nodes are also used as the markers for node parts
+            const name = lastAttributeNameRegex.exec(
+                stringForPart)[2];  // Find the corresponding attribute
+            // All bound attributes have had a suffix added in
+            // TemplateResult#getHTML to opt out of special attribute
+            // handling. To look up the attribute value we also need to add
+            // the suffix.
 
-            for (let i = 0; i < lastIndex; i++) {
-              let insert;
-              let s = strings[i];
-
-              if (s === '') {
-                insert = createMarker();
-              } else {
-                const match = lastAttributeNameRegex.exec(s);
-
-                if (match !== null && endsWith(match[2], boundAttributeSuffix)) {
-                  s = s.slice(0, match.index) + match[1] + match[2].slice(0, -boundAttributeSuffix.length) + match[3];
-                }
-
-                insert = document.createTextNode(s);
-              }
-
-              parent.insertBefore(insert, node);
-              this.parts.push({
-                type: 'node',
-                index: ++index
-              });
-            } // If there's no text, we must insert a comment to mark our place.
-            // Else, we can trust it will stick around after cloning.
-
-
-            if (strings[lastIndex] === '') {
-              parent.insertBefore(createMarker(), node);
-              nodesToRemove.push(node);
-            } else {
-              node.data = strings[lastIndex];
-            } // We have a part for each match found
-
-
-            partIndex += lastIndex;
-          }
-        } else if (node.nodeType === 8
-      /* Node.COMMENT_NODE */
-      ) {
-          if (node.data === marker) {
-            const parent = node.parentNode; // Add a new marker node to be the startNode of the Part if any of
-            // the following are true:
-            //  * We don't have a previousSibling
-            //  * The previousSibling is already the start of a previous part
-
-            if (node.previousSibling === null || index === lastPartIndex) {
-              index++;
-              parent.insertBefore(createMarker(), node);
-            }
-
-            lastPartIndex = index;
-            this.parts.push({
-              type: 'node',
-              index
-            }); // If we don't have a nextSibling, keep this node so we have an end.
-            // Else, we can remove it to save future costs.
-
-            if (node.nextSibling === null) {
-              node.data = '';
-            } else {
-              nodesToRemove.push(node);
-              index--;
-            }
-
-            partIndex++;
-          } else {
-            let i = -1;
-
-            while ((i = node.data.indexOf(marker, i + 1)) !== -1) {
-              // Comment node has a binding marker inside, make an inactive part
-              // The binding won't work, but subsequent bindings will
-              // TODO (justinfagnani): consider whether it's even worth it to
-              // make bindings in comments work
-              this.parts.push({
-                type: 'node',
-                index: -1
-              });
-              partIndex++;
-            }
+            const attributeLookupName =
+                name.toLowerCase() + boundAttributeSuffix;
+            const attributeValue = node.getAttribute(attributeLookupName);
+            node.removeAttribute(attributeLookupName);
+            const statics = attributeValue.split(markerRegex);
+            this.parts.push({type: 'attribute', index, name, strings: statics});
+            partIndex += statics.length - 1;
           }
         }
-    } // Remove text binding nodes after the walk to not disturb the TreeWalker
+
+        if (node.tagName === 'TEMPLATE') {
+          stack.push(node);
+          walker.currentNode = node.content;
+        }
+      } else if (
+          node.nodeType === 3
+          /* Node.TEXT_NODE */
+      ) {
+        const data = node.data;
+
+        if (data.indexOf(marker) >= 0) {
+          const parent = node.parentNode;
+          const strings = data.split(markerRegex);
+          const lastIndex = strings.length -
+              1;  // Generate a new text node for each literal section
+          // These nodes are also used as the markers for node parts
+
+          for (let i = 0; i < lastIndex; i++) {
+            let insert;
+            let s = strings[i];
+
+            if (s === '') {
+              insert = createMarker();
+            } else {
+              const match = lastAttributeNameRegex.exec(s);
+
+              if (match !== null && endsWith(match[2], boundAttributeSuffix)) {
+                s = s.slice(0, match.index) + match[1] +
+                    match[2].slice(0, -boundAttributeSuffix.length) + match[3];
+              }
+
+              insert = document.createTextNode(s);
+            }
+
+            parent.insertBefore(insert, node);
+            this.parts.push({type: 'node', index: ++index});
+          }  // If there's no text, we must insert a comment to mark our place.
+          // Else, we can trust it will stick around after cloning.
+
+
+          if (strings[lastIndex] === '') {
+            parent.insertBefore(createMarker(), node);
+            nodesToRemove.push(node);
+          } else {
+            node.data = strings[lastIndex];
+          }  // We have a part for each match found
+
+
+          partIndex += lastIndex;
+        }
+      } else if (
+          node.nodeType === 8
+          /* Node.COMMENT_NODE */
+      ) {
+        if (node.data === marker) {
+          const parent = node.parentNode;  // Add a new marker node to be the
+                                           // startNode of the Part if any of
+          // the following are true:
+          //  * We don't have a previousSibling
+          //  * The previousSibling is already the start of a previous part
+
+          if (node.previousSibling === null || index === lastPartIndex) {
+            index++;
+            parent.insertBefore(createMarker(), node);
+          }
+
+          lastPartIndex = index;
+          this.parts.push({
+            type: 'node',
+            index
+          });  // If we don't have a nextSibling, keep this node so we have an
+               // end.
+          // Else, we can remove it to save future costs.
+
+          if (node.nextSibling === null) {
+            node.data = '';
+          } else {
+            nodesToRemove.push(node);
+            index--;
+          }
+
+          partIndex++;
+        } else {
+          let i = -1;
+
+          while ((i = node.data.indexOf(marker, i + 1)) !== -1) {
+            // Comment node has a binding marker inside, make an inactive part
+            // The binding won't work, but subsequent bindings will
+            // TODO (justinfagnani): consider whether it's even worth it to
+            // make bindings in comments work
+            this.parts.push({type: 'node', index: -1});
+            partIndex++;
+          }
+        }
+      }
+    }  // Remove text binding nodes after the walk to not disturb the TreeWalker
 
 
     for (const n of nodesToRemove) {
       n.parentNode.removeChild(n);
     }
   }
-
 }
 
 exports.Template = Template;
@@ -1483,7 +1566,8 @@ const endsWith = (str, suffix) => {
   return index >= 0 && str.slice(index) === suffix;
 };
 
-const isTemplatePartActive = part => part.index !== -1; // Allows `document.createComment('')` to be renamed for a
+const isTemplatePartActive = part => part.index !==
+    -1;  // Allows `document.createComment('')` to be renamed for a
 // small manual size-savings.
 
 
@@ -1519,199 +1603,200 @@ const createMarker = () => document.createComment('');
 
 
 exports.createMarker = createMarker;
-const lastAttributeNameRegex = // eslint-disable-next-line no-control-regex
-/([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
+const lastAttributeNameRegex =  // eslint-disable-next-line no-control-regex
+    /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
 exports.lastAttributeNameRegex = lastAttributeNameRegex;
+        },
+        {}
+      ],
+      11: [
+        function(require, module, exports) {
+'use strict';
 
-},{}],11:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "DefaultTemplateProcessor", {
+Object.defineProperty(exports, '__esModule', {value: true});
+Object.defineProperty(exports, 'DefaultTemplateProcessor', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _defaultTemplateProcessor.DefaultTemplateProcessor;
   }
 });
-Object.defineProperty(exports, "defaultTemplateProcessor", {
+Object.defineProperty(exports, 'defaultTemplateProcessor', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _defaultTemplateProcessor.defaultTemplateProcessor;
   }
 });
-Object.defineProperty(exports, "SVGTemplateResult", {
+Object.defineProperty(exports, 'SVGTemplateResult', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _templateResult.SVGTemplateResult;
   }
 });
-Object.defineProperty(exports, "TemplateResult", {
+Object.defineProperty(exports, 'TemplateResult', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _templateResult.TemplateResult;
   }
 });
-Object.defineProperty(exports, "directive", {
+Object.defineProperty(exports, 'directive', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _directive.directive;
   }
 });
-Object.defineProperty(exports, "isDirective", {
+Object.defineProperty(exports, 'isDirective', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _directive.isDirective;
   }
 });
-Object.defineProperty(exports, "removeNodes", {
+Object.defineProperty(exports, 'removeNodes', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _dom.removeNodes;
   }
 });
-Object.defineProperty(exports, "reparentNodes", {
+Object.defineProperty(exports, 'reparentNodes', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _dom.reparentNodes;
   }
 });
-Object.defineProperty(exports, "noChange", {
+Object.defineProperty(exports, 'noChange', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _part.noChange;
   }
 });
-Object.defineProperty(exports, "nothing", {
+Object.defineProperty(exports, 'nothing', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _part.nothing;
   }
 });
-Object.defineProperty(exports, "AttributeCommitter", {
+Object.defineProperty(exports, 'AttributeCommitter', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _parts.AttributeCommitter;
   }
 });
-Object.defineProperty(exports, "AttributePart", {
+Object.defineProperty(exports, 'AttributePart', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _parts.AttributePart;
   }
 });
-Object.defineProperty(exports, "BooleanAttributePart", {
+Object.defineProperty(exports, 'BooleanAttributePart', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _parts.BooleanAttributePart;
   }
 });
-Object.defineProperty(exports, "EventPart", {
+Object.defineProperty(exports, 'EventPart', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _parts.EventPart;
   }
 });
-Object.defineProperty(exports, "isIterable", {
+Object.defineProperty(exports, 'isIterable', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _parts.isIterable;
   }
 });
-Object.defineProperty(exports, "isPrimitive", {
+Object.defineProperty(exports, 'isPrimitive', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _parts.isPrimitive;
   }
 });
-Object.defineProperty(exports, "NodePart", {
+Object.defineProperty(exports, 'NodePart', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _parts.NodePart;
   }
 });
-Object.defineProperty(exports, "PropertyCommitter", {
+Object.defineProperty(exports, 'PropertyCommitter', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _parts.PropertyCommitter;
   }
 });
-Object.defineProperty(exports, "PropertyPart", {
+Object.defineProperty(exports, 'PropertyPart', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _parts.PropertyPart;
   }
 });
-Object.defineProperty(exports, "parts", {
+Object.defineProperty(exports, 'parts', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _render.parts;
   }
 });
-Object.defineProperty(exports, "render", {
+Object.defineProperty(exports, 'render', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _render.render;
   }
 });
-Object.defineProperty(exports, "templateCaches", {
+Object.defineProperty(exports, 'templateCaches', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _templateFactory.templateCaches;
   }
 });
-Object.defineProperty(exports, "templateFactory", {
+Object.defineProperty(exports, 'templateFactory', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _templateFactory.templateFactory;
   }
 });
-Object.defineProperty(exports, "TemplateInstance", {
+Object.defineProperty(exports, 'TemplateInstance', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _templateInstance.TemplateInstance;
   }
 });
-Object.defineProperty(exports, "createMarker", {
+Object.defineProperty(exports, 'createMarker', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _template.createMarker;
   }
 });
-Object.defineProperty(exports, "isTemplatePartActive", {
+Object.defineProperty(exports, 'isTemplatePartActive', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _template.isTemplatePartActive;
   }
 });
-Object.defineProperty(exports, "Template", {
+Object.defineProperty(exports, 'Template', {
   enumerable: true,
-  get: function () {
+  get: function() {
     return _template.Template;
   }
 });
 exports.svg = exports.html = void 0;
 
-var _defaultTemplateProcessor = require("./lib/default-template-processor.js");
+var _defaultTemplateProcessor = require('./lib/default-template-processor.js');
 
-var _templateResult = require("./lib/template-result.js");
+var _templateResult = require('./lib/template-result.js');
 
-var _directive = require("./lib/directive.js");
+var _directive = require('./lib/directive.js');
 
-var _dom = require("./lib/dom.js");
+var _dom = require('./lib/dom.js');
 
-var _part = require("./lib/part.js");
+var _part = require('./lib/part.js');
 
-var _parts = require("./lib/parts.js");
+var _parts = require('./lib/parts.js');
 
-var _render = require("./lib/render.js");
+var _render = require('./lib/render.js');
 
-var _templateFactory = require("./lib/template-factory.js");
+var _templateFactory = require('./lib/template-factory.js');
 
-var _templateInstance = require("./lib/template-instance.js");
+var _templateInstance = require('./lib/template-instance.js');
 
-var _template = require("./lib/template.js");
+var _template = require('./lib/template.js');
 
 /**
  * @license
@@ -1758,7 +1843,9 @@ if (typeof window !== 'undefined') {
  */
 
 
-const html = (strings, ...values) => new _templateResult.TemplateResult(strings, values, 'html', _defaultTemplateProcessor.defaultTemplateProcessor);
+const html = (strings, ...values) => new _templateResult.TemplateResult(
+    strings, values, 'html',
+    _defaultTemplateProcessor.defaultTemplateProcessor);
 /**
  * Interprets a template literal as an SVG template that can efficiently
  * render to and update a container.
@@ -1767,11 +1854,26 @@ const html = (strings, ...values) => new _templateResult.TemplateResult(strings,
 
 exports.html = html;
 
-const svg = (strings, ...values) => new _templateResult.SVGTemplateResult(strings, values, 'svg', _defaultTemplateProcessor.defaultTemplateProcessor);
+const svg = (strings, ...values) => new _templateResult.SVGTemplateResult(
+    strings, values, 'svg', _defaultTemplateProcessor.defaultTemplateProcessor);
 
 exports.svg = svg;
-
-},{"./lib/default-template-processor.js":1,"./lib/directive.js":2,"./lib/dom.js":3,"./lib/part.js":4,"./lib/parts.js":5,"./lib/render.js":6,"./lib/template-factory.js":7,"./lib/template-instance.js":8,"./lib/template-result.js":9,"./lib/template.js":10}],12:[function(require,module,exports){
+        },
+        {
+          './lib/default-template-processor.js': 1,
+          './lib/directive.js': 2,
+          './lib/dom.js': 3,
+          './lib/part.js': 4,
+          './lib/parts.js': 5,
+          './lib/render.js': 6,
+          './lib/template-factory.js': 7,
+          './lib/template-instance.js': 8,
+          './lib/template-result.js': 9,
+          './lib/template.js': 10
+        }
+      ],
+      12: [
+        function(require, module, exports) {
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -1944,5 +2046,8 @@ function removeAllChildNodes(parentNode) {
     parentNode.removeChild(parentNode.lastChild);
   }
 }
-
-},{"lit-html":11}]},{},[12]);
+        },
+        {'lit-html': 11}
+      ]
+    },
+    {}, [12]);
