@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns comments from datastore */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private static final String[] IMG_URLS = {"images/identicon-1.png", "images/identicon-2.png",
+  private static final String[] imgUrls = {"images/identicon-1.png", "images/identicon-2.png",
       "images/identicon-3.png", "images/identicon-4.png", "images/identicon-5.png",
       "images/identicon-6.png", "images/identicon-7.png", "images/identicon-8.png"};
 
@@ -111,6 +111,6 @@ public class DataServlet extends HttpServlet {
 
   /** Returns a random image URL for a comment's avatar */
   private static String getRandomImageUrl() {
-    return IMG_URLS[(int) (Math.random() * IMG_URLS.length)];
+    return imgUrls[(int) (Math.random() * imgUrls.length)];
   }
 }
