@@ -26,10 +26,14 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.setContentType("text/html");
+
     UserService userService = UserServiceFactory.getUserService();
+    String loginUrl = userService.createLoginURL("/");
 
     if (!userService.isUserLoggedIn()) {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      response.getWriter().println("<a href=\"" + loginUrl + "\">Log in to leave a comment</a>");
     } else {
       response.setStatus(HttpServletResponse.SC_OK);
     }
