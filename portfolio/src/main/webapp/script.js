@@ -19,6 +19,8 @@ const litHtml = require('lit-html');
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
+showCommentFormOrLoginLink();
+
 // Server sends all comments by default
 fetchCommentsFromServer('');
 
@@ -63,6 +65,20 @@ function addRandomQuote() {
   // Add it to the page.
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
+}
+
+/**
+ * Unhides the create comments form if the user is logged in, otherwise
+ * shows a login link
+ */
+async function showCommentFormOrLoginLink() {
+  const response = await fetch('/login-status');
+  const loginStatus = response.status;
+  if (loginStatus == 200) {
+    document.getElementById('new-comment-form').style.display = 'block';
+  } else {
+    document.getElementById('login-link').innerHTML = await response.text();
+  }
 }
 
 /**
