@@ -72,12 +72,14 @@ function addRandomQuote() {
  * shows a login link
  */
 async function showFormOrLoginLink() {
+  console.log('show form?');
   const response = await fetch('/login-status');
   const loginStatus = await response.status;
   if (loginStatus == 200) {
     console.log('logged in');
     document.getElementById('new-comment-form').style.display = 'block';
   } else {
+    console.log('not logged in');
     document.getElementById('login-link').innerHTML = await response.text();
   }
 }
@@ -159,7 +161,8 @@ function commentTemplate(comment) {
           />
         </div>
         <div class="uk-width-expand">
-          <h4 class="uk-comment-title uk-margin-remove">${comment.author}</h4>
+          <h4 class="uk-comment-title uk-margin-remove">${comment.author} | ${
+  comment.authorEmail}</h4>
             <ul 
               class="uk-comment-meta uk-subnav uk-subnav-divider
               uk-margin-remove-top"

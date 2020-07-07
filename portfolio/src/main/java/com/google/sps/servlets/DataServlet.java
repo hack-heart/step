@@ -65,16 +65,16 @@ public class DataServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
 
     String author = request.getParameter("author");
-    String email = userService.getCurrentUser().getEmail();
+    String authorEmail = userService.getCurrentUser().getEmail();
     String text = request.getParameter("text");
     long timestamp = System.currentTimeMillis();
 
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("author", author);
-    commentEntity.setProperty("email", email);
+    commentEntity.setProperty("authorEmail", authorEmail);
+    commentEntity.setProperty("avatarUrl", getRandomImageUrl());
     commentEntity.setProperty("text", text);
     commentEntity.setProperty("timestamp", timestamp);
-    commentEntity.setProperty("avatarUrl", getRandomImageUrl());
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
@@ -106,10 +106,11 @@ public class DataServlet extends HttpServlet {
     long id = entity.getKey().getId();
     long timestamp = (long) entity.getProperty("timestamp");
     String author = (String) entity.getProperty("author");
+    String authorEmail = (String) entity.getProperty("authorEmail");
     String avatarUrl = (String) entity.getProperty("avatarUrl");
     String text = (String) entity.getProperty("text");
 
-    return new Comment(id, formatTimestamp(timestamp), author, avatarUrl, text);
+    return new Comment(id, formatTimestamp(timestamp), author, authorEmail, avatarUrl, text);
   }
 
   /** Returns a random image URL for a comment's avatar */
