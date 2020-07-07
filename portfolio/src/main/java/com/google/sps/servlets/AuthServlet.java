@@ -16,7 +16,6 @@ package com.google.sps.servlets;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,9 +29,15 @@ public class AuthServlet extends HttpServlet {
     response.setContentType("text/html");
 
     UserService userService = UserServiceFactory.getUserService();
-    Gson gson = new Gson();
+    String loginUrl = userService.createLoginURL("/");
+    String logoutUrl = userService.createLogoutURL("/");
 
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(userService.isUserLoggedIn()));
+    if (!userService.isUserLoggedIn()) {
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+      response.getWriter().println("<a href=\"" + loginUrl + "\">Log in to leave a comment</a>");
+    } else {
+      response.setStatus(HttpServletResponse.SC_OK);
+      response.getWriter().println("<a href=\"" + logoutUrl + "\">here</a>");
+    }
   }
 }

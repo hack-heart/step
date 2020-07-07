@@ -15,6 +15,8 @@
 // eslint-disable-next-line no-undef
 const litHtml = require('lit-html');
 
+showFormOrLoginLink();
+
 // Shows a quote when the quote button is clicked
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
@@ -71,11 +73,12 @@ function addRandomQuote() {
  */
 async function showFormOrLoginLink() {
   const response = await fetch('/login-status');
-  const loginStatus = await response.json();
-  if (loginStatus) {
-    document.getElementById('new-comment-form').visibility = 'visible';
+  const loginStatus = await response.status;
+  if (loginStatus == 200) {
+    console.log('logged in');
+    document.getElementById('new-comment-form').style.display = 'block';
   } else {
-    document.getElementById('login-link').innerText = '';
+    document.getElementById('login-link').innerHTML = await response.text();
   }
 }
 
