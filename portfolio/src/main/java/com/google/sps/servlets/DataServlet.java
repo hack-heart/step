@@ -68,6 +68,9 @@ public class DataServlet extends HttpServlet {
     String authorEmail = userService.getCurrentUser().getEmail();
     String text = request.getParameter("text");
     long timestamp = System.currentTimeMillis();
+    String showEmail = request.getParameter("show-email");
+    System.out.println("And the answer is");
+    System.out.println(showEmail);
 
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("author", author);
@@ -75,6 +78,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty("avatarUrl", getRandomImageUrl());
     commentEntity.setProperty("text", text);
     commentEntity.setProperty("timestamp", timestamp);
+    commentEntity.setProperty("showEmail", showEmail);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
@@ -103,10 +107,12 @@ public class DataServlet extends HttpServlet {
 
   /** Constructs a comment object from a Datastore entity */
   private static Comment convertEntityToComment(Entity entity) {
+    Boolean showEmail = Boolean.parseBoolean((String) entity.getProperty("showEmail"));
+
     long id = entity.getKey().getId();
     long timestamp = (long) entity.getProperty("timestamp");
     String author = (String) entity.getProperty("author");
-    String authorEmail = (String) entity.getProperty("authorEmail");
+    String authorEmail = showEmail ? (String) entity.getProperty("authorEmail") : "Anonymous";
     String avatarUrl = (String) entity.getProperty("avatarUrl");
     String text = (String) entity.getProperty("text");
 
