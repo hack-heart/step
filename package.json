@@ -18,10 +18,10 @@
     "esmify": "^2.1.1"
   },
   "scripts": {
-    "build": "yarn browserify portfolio/src/main/webapp/script.js -p esmify > portfolio/src/main/webapp/generated-files/bundle.js",
-    "start": "cd portfolio; mvn package appengine:run",
-    "prettify": "make pretty; make validate && yarn build",
-    "deploy": "cd portfolio; mvn package appengine:deploy",
+    "build": "yarn browserify portfolio/src/main/webapp/script.js -p esmify > portfolio/src/main/webapp/generated-files/bundle.js; sed -i '1s/^/\\/\\/ /' portfolio/src/main/webapp/generated-files/bundle.js",
+    "start": "yarn build && cd portfolio; mvn package appengine:run",
+    "prettify": "make pretty; make validate",
+    "deploy": "yarn build && cd portfolio; mvn package appengine:deploy",
     "test": "echo \"no test found\" && exit 1"
   },
   "repository": {

@@ -28,9 +28,9 @@ maxCommentsInput.addEventListener('change', (event) => {
   fetchCommentsFromServer(event.target.value);
 });
 
-// Deletes all comments when the delete button is clicked
-const deleteButton = document.getElementById('delete-button');
-deleteButton.addEventListener('click', deleteAllComments);
+// Deletes all comments when the delete all button is clicked
+const deleteAllButton = document.getElementById('delete-all');
+deleteAllButton.addEventListener('click', deleteAllComments);
 
 /**
  * Adds a random quote from Pierce Brown's Red Rising to the page.
@@ -66,56 +66,64 @@ function addRandomQuote() {
 }
 
 /**
- * Renders comments from the server on the page
+ * Renders comments from the server on the page, adding the onclick event
+ * listeners for all of them
  */
 async function fetchCommentsFromServer(maxComments) {
   const response = await fetch(`/data?maxComments=${maxComments}`);
   const comments = await response.json();
   const commentsContainer = document.getElementById('comments-container');
   removeAllChildNodes(commentsContainer);
-  comments.map((comment) => transformCommentToListElement(comment))
+  await comments.map((comment) => transformCommentToListElement(comment))
       .forEach((listElement) => {
         commentsContainer.appendChild(listElement);
       });
+  addEventListenersToDeleteButtons();
+}
+
+/**
+ * Deletes an individual comment
+ */
+async function deleteComment(commentId) {
+  await fetch(`/delete-comment?id=${commentId}`, {method: 'POST'});
+  fetchCommentsFromServer('');
 }
 
 /**
  * Deletes all comments
  */
-function deleteAllComments() {
-  fetch('/delete-data', {method: 'POST'}).then(() => {
-    fetchCommentsFromServer('');
-  });
+async function deleteAllComments() {
+  await fetch('/delete-data', {method: 'POST'});
+  fetchCommentsFromServer('');
 }
 
 /**
  * Transforms a comment object to a list element styled with UI Kit classes
  */
 function transformCommentToListElement(comment) {
-  const identiconUrls = [
-    'images/identicon-1.png',
-    'images/identicon-2.png',
-    'images/identicon-3.png',
-    'images/identicon-4.png',
-    'images/identicon-5.png',
-    'images/identicon-6.png',
-    'images/identicon-7.png',
-    'images/identicon-8.png',
-  ];
-  // Pick a random identicon to use as an avatar
-  const avatarUrl =
-      identiconUrls[Math.floor(Math.random() * identiconUrls.length)];
-
   const listElement = document.createElement('li');
-  litHtml.render(commentTemplate(comment, avatarUrl), listElement);
+  litHtml.render(commentTemplate(comment), listElement);
 
   return listElement;
 }
 
 /**
- * Constructs a comment template from a comment object and an avatar url
+ * Adds onclick event listeners to all the delete buttons to delete their
+ * associated comments
  */
-function commentTemplate(comment, avatarUrl) {
+function addEventListenersToDeleteButtons() {
+  const deleteOneButtons = document.querySelectorAll('.delete-one');
+  deleteOneButtons.forEach((deleteOneButton) => {
+    deleteOneButton.addEventListener('click', () => {
+      deleteComment(event.target.dataset.id);
+    });
+  });
+}
+
+/**
+ * Constructs a comment template from a comment object
+ */
+function commentTemplate(comment) {
   return litHtml.html`
   <article
     class="uk-comment uk-visible-toggle uk-comment-primary"
@@ -126,7 +134,7 @@ function commentTemplate(comment, avatarUrl) {
         <div class="uk-width-auto uk-first-column">
           <img
             class="uk-comment-avatar"
-            src=${avatarUrl}
+            src=${comment.avatarUrl}
             alt="identicon"
             width="80"
             height="80"
@@ -134,9 +142,17 @@ function commentTemplate(comment, avatarUrl) {
         </div>
         <div class="uk-width-expand">
           <h4 class="uk-comment-title uk-margin-remove">${comment.author}</h4>
-          <p class="uk-comment-meta uk-margin-remove-top">
-          ${comment.timestamp}
-          </p>
+            <ul 
+              class="uk-comment-meta uk-subnav uk-subnav-divider
+              uk-margin-remove-top"
+            >
+              <li><a href="#">${comment.timestamp}</a></li>
+              <li>
+                <button data-id=${comment.id} class="delete-one uk-button">
+                  DELETE
+                </button>
+              </li>
+            </ul>
         </div>
       </div>
     </header>

@@ -24,6 +24,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.lang.Math;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,10 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns comments from datastore */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  private String[] imgUrls = {"images/identicon-1.png", "images/identicon-2.png",
+      "images/identicon-3.png", "images/identicon-4.png", "images/identicon-5.png",
+      "images/identicon-6.png", "images/identicon-7.png", "images/identicon-8.png"};
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
@@ -67,7 +72,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty("author", author);
     commentEntity.setProperty("text", text);
     commentEntity.setProperty("timestamp", timestamp);
-
+    commentEntity.setProperty("avatarUrl", getRandomImageUrl());
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
@@ -98,8 +103,14 @@ public class DataServlet extends HttpServlet {
     long id = entity.getKey().getId();
     long timestamp = (long) entity.getProperty("timestamp");
     String author = (String) entity.getProperty("author");
+    String avatarUrl = (String) entity.getProperty("avatarUrl");
     String text = (String) entity.getProperty("text");
 
-    return new Comment(id, formatTimestamp(timestamp), author, text);
+    return new Comment(id, formatTimestamp(timestamp), author, avatarUrl, text);
+  }
+
+  /** Returns a random image URL for a comment's avatar */
+  private String getRandomImageUrl() {
+    return imgUrls[(int) (Math.random() * imgUrls.length)];
   }
 }
