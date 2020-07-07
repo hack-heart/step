@@ -6,3 +6,6 @@ target/
 
 # Ignore editor config
 .idea
+
+# Ignore generated build files
+portfolio/src/main/webapp/generated-files/
