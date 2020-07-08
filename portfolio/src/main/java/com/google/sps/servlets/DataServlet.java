@@ -21,6 +21,8 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
@@ -64,15 +66,19 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+
     String author = request.getParameter("author");
+    String authorEmail = userService.getCurrentUser().getEmail();
     String text = request.getParameter("text");
     long timestamp = System.currentTimeMillis();
 
     Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("author", author);
-    commentEntity.setProperty("text", text);
     commentEntity.setProperty("timestamp", timestamp);
+    commentEntity.setProperty("author", author);
+    commentEntity.setProperty("authorEmail", authorEmail);
     commentEntity.setProperty("avatarUrl", getRandomImageUrl());
+    commentEntity.setProperty("text", text);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
