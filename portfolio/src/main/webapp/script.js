@@ -157,7 +157,8 @@ function commentTemplate(comment) {
           />
         </div>
         <div class="uk-width-expand">
-          <h4 class="uk-comment-title uk-margin-remove">${comment.author}</h4>
+          <h4 class="uk-comment-title uk-margin-remove">${comment.author} | ${
+      comment.authorEmail}</h4>
             <ul 
               class="uk-comment-meta uk-subnav uk-subnav-divider
               uk-margin-remove-top"
