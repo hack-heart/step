@@ -23,13 +23,55 @@ public final class Comment {
   private final String avatarUrl;
   private final String text;
 
-  public Comment(
-      long id, String timestamp, String author, String authorEmail, String avatarUrl, String text) {
-    this.id = id;
-    this.timestamp = timestamp;
-    this.author = author;
-    this.authorEmail = authorEmail;
-    this.avatarUrl = avatarUrl;
-    this.text = text;
+  public static class Builder {
+    private long id;
+    private String timestamp;
+    private String author;
+    private String authorEmail;
+    private String avatarUrl;
+    private String text;
+
+    public Builder setId(long val) {
+      id = val;
+      return this;
+    }
+
+    public Builder setTimestamp(String val) {
+      timestamp = val;
+      return this;
+    }
+
+    public Builder setAuthor(String val) {
+      author = val;
+      return this;
+    }
+
+    public Builder setAuthorEmail(String val) {
+      authorEmail = val;
+      return this;
+    }
+
+    public Builder setAvatarUrl(String val) {
+      avatarUrl = val;
+      return this;
+    }
+
+    public Builder setText(String val) {
+      text = val;
+      return this;
+    }
+
+    public Comment build() {
+      return new Comment(this);
+    }
+  }
+
+  private Comment(Builder builder) {
+    this.id = builder.id;
+    this.timestamp = builder.timestamp;
+    this.author = builder.author;
+    this.authorEmail = builder.authorEmail;
+    this.avatarUrl = builder.avatarUrl;
+    this.text = builder.text;
   }
 }

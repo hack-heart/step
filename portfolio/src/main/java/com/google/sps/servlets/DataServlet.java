@@ -25,6 +25,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
+import com.google.sps.data.Comment.Builder;
 import java.io.IOException;
 import java.lang.Math;
 import java.text.SimpleDateFormat;
@@ -113,7 +114,14 @@ public class DataServlet extends HttpServlet {
     String avatarUrl = (String) entity.getProperty("avatarUrl");
     String text = (String) entity.getProperty("text");
 
-    return new Comment(id, formatTimestamp(timestamp), author, authorEmail, avatarUrl, text);
+    return new Comment.Builder()
+        .setId(id)
+        .setTimestamp(formatTimestamp(timestamp))
+        .setAuthor(author)
+        .setAuthorEmail(authorEmail)
+        .setAvatarUrl(avatarUrl)
+        .setText(text)
+        .build();
   }
 
   /** Returns a random image URL for a comment's avatar */
