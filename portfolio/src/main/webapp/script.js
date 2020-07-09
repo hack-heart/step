@@ -15,6 +15,8 @@
 // eslint-disable-next-line no-undef
 const litHtml = require('lit-html');
 
+initMap();
+
 showFormOrLoginLink();
 
 // Shows a quote when the quote button is clicked
@@ -65,6 +67,15 @@ function addRandomQuote() {
   // Add it to the page.
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
+}
+
+/**
+ * Initialises a map on the webpage
+ */
+function initMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: -34.397, lng: 150.644}, zoom: 8});
 }
 
 /**
