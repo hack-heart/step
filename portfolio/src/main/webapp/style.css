@@ -33,6 +33,10 @@ h2 {
   padding: 15px;
 }
 
+#map {
+  height: 500px;
+}
+
 #new-comment-form {
   display: none;
 }
