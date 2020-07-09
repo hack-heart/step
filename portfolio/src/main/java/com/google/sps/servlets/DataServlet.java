@@ -109,10 +109,11 @@ public class DataServlet extends HttpServlet {
     long id = entity.getKey().getId();
     long timestamp = (long) entity.getProperty("timestamp");
     String author = (String) entity.getProperty("author");
+    String authorEmail = (String) entity.getProperty("authorEmail");
     String avatarUrl = (String) entity.getProperty("avatarUrl");
     String text = (String) entity.getProperty("text");
 
-    return new Comment(id, formatTimestamp(timestamp), author, avatarUrl, text);
+    return new Comment(id, formatTimestamp(timestamp), author, authorEmail, avatarUrl, text);
   }
 
   /** Returns a random image URL for a comment's avatar */
