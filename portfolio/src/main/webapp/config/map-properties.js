@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const mapProps = {
+const mapProperties = {
   center: {lat: 19.279619, lng: 166.6499348},
   zoom: 2,
 
@@ -139,4 +139,4 @@ const mapProps = {
   ],
 };
 
-export default mapProps;
+export default mapProperties;

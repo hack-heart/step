@@ -14,7 +14,7 @@
 
 import {render} from 'lit-html';
 
-import mapProps from './props/map-props.js';
+import mapProperties from './config/map-properties.js';
 import commentTemplate from './templates/comment-template.js';
 
 // Shows a quote when the quote button is clicked
@@ -76,7 +76,8 @@ function addRandomQuote() {
  */
 /* global google */
 function initMap() {
-  const map = new google.maps.Map(document.getElementById('map'), mapProps);
+  const map =
+      new google.maps.Map(document.getElementById('map'), mapProperties);
 
   const myPlaces = [
     {position: {lat: 9.081999, lng: 8.675276999999999}, countryCode: 'NG'},
