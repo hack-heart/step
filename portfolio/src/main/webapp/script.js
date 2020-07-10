@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// eslint-disable-next-line no-undef
-const litHtml = require('lit-html');
+import {render} from 'lit-html';
+import commentTemplate from './templates/comment-template.js';
 
 // Shows a quote when the quote button is clicked
 const quoteButton = document.getElementById('quote-button');
@@ -265,7 +265,7 @@ async function deleteAllComments() {
  */
 function transformCommentToListElement(comment) {
   const listElement = document.createElement('li');
-  litHtml.render(commentTemplate(comment), listElement);
+  render(commentTemplate(comment), listElement);
 
   return listElement;
 }
@@ -281,48 +281,6 @@ function addEventListenersToDeleteButtons() {
       deleteComment(event.target.dataset.id);
     });
   });
-}
-
-/**
- * Constructs a comment template from a comment object
- */
-function commentTemplate(comment) {
-  return litHtml.html`
-  <article
-    class="uk-comment uk-visible-toggle uk-comment-primary"
-    tabindex="-1"
-  >
-    <header class="uk-comment-header uk-position-relative">
-      <div class="uk-grid-small uk-flex-middle uk-grid" uk-grid="">
-        <div class="uk-width-auto uk-first-column">
-          <img
-            class="uk-comment-avatar"
-            src=${comment.avatarUrl}
-            alt="identicon"
-            width="80"
-            height="80"
-          />
-        </div>
-        <div class="uk-width-expand">
-          <h4 class="uk-comment-title uk-margin-remove">${comment.author} | ${
-      comment.authorEmail}</h4>
-            <ul 
-              class="uk-comment-meta uk-subnav uk-subnav-divider
-              uk-margin-remove-top"
-            >
-              <li><a href="#">${comment.timestamp}</a></li>
-              <li>
-                <button data-id=${comment.id} class="delete-one uk-button">
-                  DELETE
-                </button>
-              </li>
-            </ul>
-        </div>
-      </div>
-    </header>
-    <div class="uk-comment-body"><p>${comment.text}</p></div>
-  </article>
-  `;
 }
 
 /**
