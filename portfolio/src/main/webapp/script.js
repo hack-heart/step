@@ -19,6 +19,8 @@ const litHtml = require('lit-html');
 const quoteButton = document.getElementById('quote-button');
 quoteButton.addEventListener('click', addRandomQuote);
 
+initMap();
+
 showCommentFormOrLoginLink();
 
 // Server sends all comments by default
@@ -65,6 +67,16 @@ function addRandomQuote() {
   // Add it to the page.
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
+}
+
+/*
+ * Initialises a map on the webpage
+ */
+/* global google */
+function initMap() {
+  new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: -34.397, lng: 150.644}, zoom: 8});
 }
 
 /**
