@@ -31,7 +31,7 @@ public final class EventTest {
   private static final int DURATION_30_MINUTES = 30;
   private static final int DURATION_60_MINUTES = 60;
 
-   private static final int TIME_0830 = TimeRange.getTimeInMinutes(8, 30);
+  private static final int TIME_0830 = TimeRange.getTimeInMinutes(8, 30);
   private static final int TIME_1330 = TimeRange.getTimeInMinutes(13, 30);
 
   private static final Event EVENT_A = new Event(
