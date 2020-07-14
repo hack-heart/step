@@ -14,10 +14,49 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    PriorityQueue<Event> eventQueue = new PriorityQueue<>(Event.ORDER_BY_START_TIME);
+    eventQueue.addAll(events);
+
+    Collection<TimeRange> availableTimes = new ArrayList<TimeRange>();
+    int currStartTime = TimeRange.START_OF_DAY;
+
+    while (!eventQueue.isEmpty()) {
+      Event currEvent = eventQueue.remove();
+      int currEventStart = currEvent.getWhen().start();
+      int currEventEnd = currEvent.getWhen().end();
+
+      if (hasAttendees(currEvent, request.getAttendees())) {
+        int timeBlock = currEventStart - currStartTime;
+        if ((long) timeBlock - request.getDuration() >= 0) {
+          availableTimes.add(TimeRange.fromStartEnd(currStartTime, currEventStart, false));
+        }
+        currStartTime = currStartTime > currEventEnd ? currStartTime : currEventEnd;
+      }
+    }
+
+    // handle open spaces between the last event of the day and end of day
+    int timeBlock = TimeRange.END_OF_DAY - currStartTime;
+    if ((long) timeBlock - request.getDuration() > 0) {
+      availableTimes.add(TimeRange.fromStartEnd(currStartTime, TimeRange.END_OF_DAY, true));
+    }
+
+    return availableTimes;
+  }
+
+  private static final boolean hasAttendees(Event event, Collection<String> attendees) {
+    for (String attendee : attendees) {
+      if (event.getAttendees().contains(attendee)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
