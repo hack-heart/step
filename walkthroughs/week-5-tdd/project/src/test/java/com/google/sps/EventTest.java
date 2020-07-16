@@ -49,7 +49,6 @@ public final class EventTest {
     Event[] actual = eventQueue.toArray(new Event[eventQueue.size()]);
 
     Event[] expected = {earlyEvent, lateEvent};
-
     Assert.assertEquals(expected, actual);
   }
 }

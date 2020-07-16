@@ -14,38 +14,46 @@
 
 package com.google.sps;
 
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ * Returns a Collection of TimeRange objects that represents the available time slots for a meeting
+ * to hold
+ *
+ * @param events     a collection of other events happening on the day of the meeting
+ * @param request    a meeting request with a duration and a collection of attendees
+ * @return           a collection of TimeRanges in which the meeting could hold
+ */
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     PriorityQueue<Event> eventQueue = new PriorityQueue<>(Event.ORDER_BY_START_TIME);
     eventQueue.addAll(events);
 
     Collection<TimeRange> availableTimes = new ArrayList<TimeRange>();
-    int currStartTime = TimeRange.START_OF_DAY;
+    int startOfAvailableTime = TimeRange.START_OF_DAY;
 
     while (!eventQueue.isEmpty()) {
-      Event currEvent = eventQueue.remove();
-      int currEventStart = currEvent.getWhen().start();
-      int currEventEnd = currEvent.getWhen().end();
+      Event event = eventQueue.remove();
+      int eventStart = event.getWhen().start();
+      int eventEnd = event.getWhen().end();
 
-      if (hasAttendees(currEvent, request.getAttendees())) {
-        int timeBlock = currEventStart - currStartTime;
-        if ((long) timeBlock - request.getDuration() >= 0) {
-          availableTimes.add(TimeRange.fromStartEnd(currStartTime, currEventStart, false));
+      if (hasAttendees(event, request.getAttendees())) {
+        int availableTimeBlock = eventStart - startOfAvailableTime;
+        if (availableTimeBlock >= request.getDuration()) {
+          availableTimes.add(TimeRange.fromStartEnd(startOfAvailableTime, eventStart, false));
         }
-        currStartTime = currStartTime > currEventEnd ? currStartTime : currEventEnd;
+        startOfAvailableTime = Math.max(startOfAvailableTime, eventEnd);
       }
     }
 
     // handle open spaces between the last event of the day and end of day
-    int timeBlock = TimeRange.END_OF_DAY - currStartTime;
-    if ((long) timeBlock - request.getDuration() > 0) {
-      availableTimes.add(TimeRange.fromStartEnd(currStartTime, TimeRange.END_OF_DAY, true));
+    int finalTimeBlock = TimeRange.END_OF_DAY - startOfAvailableTime;
+    if (finalTimeBlock >= request.getDuration()) {
+      availableTimes.add(TimeRange.fromStartEnd(startOfAvailableTime, TimeRange.END_OF_DAY, true));
     }
 
     return availableTimes;
