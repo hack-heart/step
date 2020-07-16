@@ -38,16 +38,20 @@ public final class FindMeetingQuery {
 
     while (!eventQueue.isEmpty()) {
       Event event = eventQueue.remove();
+
+      if (!hasAttendees(event, request.getAttendees())) {
+        continue;
+      }
+
       int eventStart = event.getWhen().start();
       int eventEnd = event.getWhen().end();
 
-      if (hasAttendees(event, request.getAttendees())) {
-        int availableTimeBlock = eventStart - startOfAvailableTime;
-        if (availableTimeBlock >= request.getDuration()) {
-          availableTimes.add(TimeRange.fromStartEnd(startOfAvailableTime, eventStart, false));
-        }
-        startOfAvailableTime = Math.max(startOfAvailableTime, eventEnd);
+      int availableTimeBlock = eventStart - startOfAvailableTime;
+      if (availableTimeBlock >= request.getDuration()) {
+        availableTimes.add(TimeRange.fromStartEnd(startOfAvailableTime, eventStart, false));
       }
+
+      startOfAvailableTime = Math.max(startOfAvailableTime, eventEnd);
     }
 
     // handle open spaces between the last event of the day and end of day
