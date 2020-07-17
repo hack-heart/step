@@ -34,20 +34,19 @@ public final class EventTest {
   private static final int TIME_0830 = TimeRange.getTimeInMinutes(8, 30);
   private static final int TIME_1330 = TimeRange.getTimeInMinutes(13, 30);
 
-  private static final Event EVENT_A = new Event(
-      "Event A", TimeRange.fromStartDuration(TIME_0830, DURATION_30_MINUTES), Arrays.asList());
-  private static final Event EVENT_B = new Event(
-      "Event B", TimeRange.fromStartDuration(TIME_1330, DURATION_60_MINUTES), Arrays.asList());
-
   @Test
-  public void orderEventByStartTime() {
-    Event[] expected = {EVENT_A, EVENT_B};
+  public void orderEventsByStartTime() {
+    // The late event should be added to the array before the early event. This means sorting with
+    // the ORDER_BY_START_TIME comparator should re-order them
+    Event earlyEvent = new Event("Early Event",
+        TimeRange.fromStartDuration(TIME_0830, DURATION_30_MINUTES), Arrays.asList());
+    Event lateEvent = new Event(
+        "Late Event", TimeRange.fromStartDuration(TIME_1330, DURATION_60_MINUTES), Arrays.asList());
 
-    PriorityQueue<Event> eventQueue = new PriorityQueue<>(Event.ORDER_BY_START_TIME);
-    eventQueue.add(EVENT_B);
-    eventQueue.add(EVENT_A);
-    Event[] actual = eventQueue.toArray(new Event[eventQueue.size()]);
+    Event[] actual = {lateEvent, earlyEvent};
+    Arrays.sort(actual, Event.ORDER_BY_START_TIME);
 
+    Event[] expected = {earlyEvent, lateEvent};
     Assert.assertEquals(expected, actual);
   }
 }
